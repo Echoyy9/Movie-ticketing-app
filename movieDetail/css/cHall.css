@@ -1,0 +1,155 @@
+.photoShow{
+	position:relative;
+    /*设置高度和宽度为了单选框能够上去*/
+    width:100%;
+	height:32%;
+
+	margin:0px auto;
+	padding:0px;
+	}
+.photoShow img{
+	width:100%;
+	height:100%;
+    }
+.contentcss{
+	padding:0px;}
+
+.liBorder {
+	 border-bottom:1px solid red;
+	}
+#clicka{
+	color:#C00;}
+	
+.showUl{
+	margin:0px;}
+
+.htime{
+  width: 15%;
+  float: left;;
+  margin-top: 0.4em;
+  text-align: center;
+}
+.start{
+  font-size: 1.2em;
+}
+.end{
+ color:#999;
+ font-size: 0.8em; 
+ margin-top: 0.5em; 
+}
+
+.hInfo{
+	width:60%;
+	float:left;
+  margin-left:5%; }
+.hInfo p{
+  color:#999;
+}
+
+
+
+.hPrice{
+	width:20%;
+	float:left;
+	font-size:1.25em;
+	color:#C33;}
+
+.hloc{
+	width:20%;
+	float:left;
+	font-size:1em;
+	color:#999;
+	margin:0px;
+	}
+.hloc p{
+	margin:0px;}
+.ui-page-theme-a .ui-btn.ui-btn-active{
+	    background-color: #f6f6f6;
+    border-color: #ddd;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;}
+.ui-page-theme-a  .ui-btn:focus{
+	box-shadow:none;}
+
+
+  .container{
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .slide{
+    width: 100%;
+    min-height: 180px;
+    overflow: hidden;
+    position: relative;
+
+  }
+  .slide .img{
+    overflow: hidden;
+    position: absolute;
+    transition: width 0.4s,height 0.4s,top 0.4s,left 0.4s,z-index 0.4s;
+  }
+  .slide .img img{
+    width: calc(100% - 14px);
+    height: calc(100% - 14px);
+    margin: 7px;
+  }
+  .slide .img1{
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: -50%;
+    z-index: 1;
+  }
+  .slide .img2{
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: -20%;
+    z-index: 2;
+  }
+  .slide .img3{
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    z-index: 3;
+  }
+  .slide .img4{
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 60%;
+    z-index: 2;
+  }
+  .slide .img5{
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 110%;
+    z-index: 1;
+  }
+  .slide-bt{
+    position: absolute;
+    left: 50%;
+    bottom: 13%;
+    z-index: 10;
+  }
+  .slide-bt span{
+    width: 24px;
+    height: 8px;
+    background: #c9caca;
+    float: left;
+    margin: 5px;
+    border-radius: 4px;
+  }
+  .slide .slide-bt .on{
+    background: #ffd200;
+  }
+  button{
+    width: 50px;
+    margin: 20px;
+  }
+	
+
+  .contentcss{
+     padding:0px;}

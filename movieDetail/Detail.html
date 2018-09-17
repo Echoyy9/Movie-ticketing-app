@@ -1,0 +1,641 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>我不是药神</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="../css/my_theme.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.icons.min.css" />
+<!--<link rel="stylesheet" href="css/detailcss.css" />-->
+
+</head>
+<style type="text/css">
+    *{
+
+    }
+    .contentcss{
+     padding:0px;}
+   .videoShow{
+     width:100%;
+     height:35%;
+     margin-top: 12.5%;
+      }
+   .videoShow video{
+     height:100%;
+     width: 100%}
+
+  .playvideo{
+    position: absolute;
+    left: 40%;
+    top:18%;
+    z-index: 999;
+      width: 15%;
+
+  }   
+  .playvideo img{
+    width: 100%;
+  }  
+
+  .playvideohide{
+     display: none; 
+  }
+
+
+  /*想看和看过按钮*/
+    .wbutton{
+    float:left;
+    width:40%;
+    
+    margin:5%;
+    margin-top:2%;
+    margin-bottom:0.5em;
+    text-align:center;
+    background-color:#FFF;
+    box-shadow: 0 1px 0 #f3f3f3;
+
+    }
+    
+    
+     .wbutton a{
+     padding:0.5em;
+     font-size: 1.2em;
+     margin:0px;
+     font-family:"YouYuan";
+    }
+  
+  /*设置按钮背景为红色*/  
+     /*#want:after{
+    background-color:#F00;}*/
+  .redheart:after{
+    background-color:#F00;}
+    
+    /*电影的信息*/
+  .movieinfo{
+    position:absolute;
+    width:100%;
+    height:85%;
+    top:40%;
+    background-color:#EAEAEA;
+    font-size: 0.8em;
+
+  }
+  .info{
+    width:100%;
+    height:35%;
+    padding:0px;
+    margin:0px;
+    background-color:#FFF;
+    float: left;}
+  /*海报*/
+  .movieImg{
+    width:25%;
+    height:66%;
+    margin:2%;
+    margin-bottom:1%;
+    float:left;
+    }
+  .movieImg img{
+    width:100%;
+    height:100%;
+    
+    }
+  /*说明*/  
+  #mName{
+    width:65%;
+    height:66%;
+    margin:2%;
+    float:left;
+    margin-bottom:1%;
+    }
+  #mName p{
+    margin:0.6em;}
+
+
+    
+  .detail{
+    background-color:#CCC;
+    }
+    
+  /*评分*/
+  .stars-bg{
+    position: relative;
+    display: inline-block;
+    height: 19px;
+    width: 157px;
+    background: url(../../data/img/scoreStar.jpg) 0 0;
+  float:left;
+}
+.star-active{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(../../data/img/scoreStar.jpg) 0 -24px;
+  
+}
+.star-eval{
+  height:20px;
+  float:left;
+margin-left: 0.5em;}
+.right-txt{
+  float:left;
+  color:#F93;
+    margin-left: 0.5em;
+  font-size:1.3em; 
+}
+  
+  /*导演和演员*/
+.DirectorAndActor{
+  width:100%;
+  height:30%;
+  margin-bottom:6%;
+  float:left;
+  background-color:#FFF;}
+.DirectorAndActor p{
+  margin:0.7em;
+  margin-bottom:1px;
+  
+  }
+.actorTitle{
+  font-size: 1.3em;
+  font-weight: bold;font-family:"YouYuan";
+}
+
+/*导演和演员图片*/
+.dAA{
+  width:10%;
+  height:75%;
+  margin:0.7em;
+  text-align:center;
+  float:left;
+  }
+.dAA p{
+  margin:0px;
+  font-size:0.2em;}
+.dAA img{
+  width:100%;
+  }
+.gallery{
+  position:absolute;  
+  width:200%;
+  height:25%;
+  overflow-x:scroll;
+  overflow-y:hidden;
+  white-space:nowrap;
+  }
+/*详情*/
+
+.detail{
+  width:100%;
+  background-color:#FFF;
+  float:left;
+  margin-top:2%;;
+  }
+
+/*电影评价*/
+.movieAssess{
+  background-color: #fff;
+  margin-top: 1em;
+  border: 1px solid #ddd;
+}
+
+.movieAssess p{
+  font-family:"YouYuan";
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-left: 0.7em;
+}
+/*剧照*/
+.drama{
+	width:100%;
+	background-color:#FFF;
+	margin-top:1em;
+	float:left;}
+.drama p{font-family:"YouYuan";
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-left: 0.7em;
+  width:40%;
+  float:left;
+}
+.drama p:nth-child(2){
+	text-align:right;
+	font-size:1.3em;
+	
+	cursor:pointer;
+	}	
+	
+.dramaimg{
+	float:left;
+	width:20%;
+	background-color:#000;
+	margin-left:1em;
+	margin-bottom:1.5em;
+	}
+.dramaimg img{
+	width:100%;
+	height:100%;}
+/*返回和主页*/
+.headercss a{
+  margin:0px;
+  }
+
+
+#header a{
+    background-color: #5bb0ba;
+    border: 0px;
+    box-shadow: none;
+    color: #ffffff;
+    text-shadow:none;
+    font-family: sans-serif ;
+    font-size: 1em;
+}
+#header h3{
+  font-size: 1.2em;
+} 
+#footer h3{
+  font-size: 1em;
+  text-shadow: none;
+} 
+
+#name{
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+</style>
+
+<body>
+    <div data-role="page" id="pageone">
+      <div data-role="header" class="headercss ui-header ui-bar-inherit ui-header-fixed slidedown" id="header" >
+        <a data-rel="back" data-icon="back" target='_top'>返回</a>
+        <h3></h3>
+        <a href="../index1.html" data-role="button" data-icon="home" target='_top'>主页</a>
+      </div>
+    
+      <div data-role="content" class="contentcss">
+        <div class="videoShow">
+
+           <div class="playvideo"><img src="../data/img/play.png"></div>
+           <video src="../data/movie/我不是药神/video/index.mp4"  autoplay loop  ></video>
+   
+        </div>
+        
+        <div class="movieinfo">
+           <div class="info">
+                <div class="movieImg">
+                   <img src="../data/movie/我不是药神/photos/index.jpg">
+                    
+                </div>
+                <div id="mName">
+                   <p id="name"> 我不是药神</p>
+                   <p id="showtime"> 上映时间 </p>
+                   <p id="director"> 导演 </p>
+                   <p id="actors">演员</p>
+                   <div class="star-eval">
+                        <span class="stars-bg">
+                            <!-- 宽度由实际数据自行计算 如4.2/5*100% -->
+                            <i class="star-active" style="width: 90%"></i>
+                        </span>
+                        <span class="right-txt"><b>5.6</b>分</span>
+                    </div>
+                  
+                  </div>
+                  <div class="wbutton" >
+               <a id="want" data-role="button" data-icon="heart">想看</a>
+            </div>
+            
+              <div class="wbutton">
+                 <a id="watched" data-role="button" data-icon="tag">看过</a>
+              </div> 
+              </div>
+           
+             
+            
+            <div class="detail" data-role="collapsible">
+            <h4>详情</h4>
+                <p id="mdetail"></p>
+                
+            </div>            
+           
+            
+            <div class="DirectorAndActor">
+                 <p class="actorTitle">演职人员</p>
+                 <div class="gallery">
+
+                 </div>
+            </div>
+            
+            <div class="drama">
+               <p>剧照</p>
+               <p id="moreDrama">更多></p>
+               
+            </div>
+
+            <div class="movieAssess">
+                <p >用户评价</p> 
+                <ul data-role="listview" data-inset="true" id="assessDetail">
+                   
+                   
+                </ul>
+            </div>
+           <div data-role="popup" id="alertPopup">
+            <p>请先登录~</p>
+          </div>
+
+            <div class="footdiv">
+               
+            </div>
+         
+        
+        </div>
+
+        
+	  </div>
+
+      <div data-role="footer" class="footercss  ui-footer ui-bar-inherit ui-footer-fixed slideup fixed" id="footer"><h3>在线购票</h3></div>    
+        
+      
+</body>
+<script>
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+//从数据库中导入详细信息
+var mID = sessionStorage.getItem("mID");
+var uName = sessionStorage.getItem("uName");
+  $(document).ready(function(e) {
+
+
+    setTimeout("pauseVideo()",300);
+
+   //视频播放的相应设置
+    $("video").trigger("play");//for auto play
+        $("video").addClass('pause');//for check pause or play add a class
+    $('video').click(function() {
+        if ($("video").hasClass('pause')) {
+            $("video").trigger("play");
+            $("video").removeClass('pause');
+            $("video").addClass('play');
+            $(".playvideo").addClass("playvideohide");
+        } else {
+            $("video").trigger("pause");
+            $("video").removeClass('play');
+            $("video").addClass('pause');
+            $(".playvideo").removeClass("playvideohide");
+        }
+    });
+
+    $('.playvideo').click(function() {
+        if ($("video").hasClass('pause')) {
+            $("video").trigger("play");
+            $("video").removeClass('pause');
+            $("video").addClass('play');
+            $(".playvideo").addClass("playvideohide");
+        } else {
+            $("video").trigger("pause");
+            $("video").removeClass('play');
+            $("video").addClass('pause');
+            $(".playvideo").removeClass("playvideohide");
+        }
+    });
+
+	  $(".dramaimg").height($(".dramaimg").width());
+      //点击更多 查看剧照
+      $("#moreDrama").click(function(){
+	      window.location.href="showDrama.html";
+	    });
+
+      $(".drama").on("click",".dramaimg",function(){
+           window.location.href="showDrama.html";
+      });
+  //content设置	 
+  	  height = $(window).height();
+	  d1 = $(".headercss").height();
+	  d2 = $(".footercss").height();
+
+    $(".footdiv").height($("#footer").height());
+	  
+	  $(".contentcss").css("height",height-d1-d2);
+	  $(".img1").css("height",$(".photoShow").height());
+	  $(window).resize(function(){
+		  height = $(window).height();
+		  d1 = $(".headercss").height();
+		  d2 = $(".footercss").height();
+		  
+		  $(".contentcss").css("height",height-d1-d2);
+		  $(".img1").css("height",$(".photoShow").height());
+   //执行代码块
+
+      });
+
+      console.log(mID+"  "+uName);
+
+       //页面初始化
+       initPage();
+
+      if(uName != null){   //用户已登录才能选做购票和相应的操作
+       
+           var is_want = false;
+           var is_watched = false;
+           db.transaction(function(tx){
+              tx.executeSql("select * from wantMovies where mID = '"+mID+"' and uName = '"+uName+"'",[],function(tx,results){  
+                     var i,len = results.rows.length;
+                     console.log("ssss"+len);
+                     
+                     if(len>0){
+                        $("#want").addClass("redheart");
+                        is_want = true;
+                     }
+                                        
+            },function(tx,error){
+          });
+          
+
+           tx.executeSql("select * from watchedMovies where mID = '"+mID+"' and uName = '"+uName+"'",[],function(tx,results){  
+                     var i,len = results.rows.length;
+                     console.log("ssss"+len);
+                     
+                     if(len>0){
+                        $("#watched").addClass("redheart");
+                        is_watched = true;
+                     }
+                        
+                                        
+            },function(tx,error){
+          });
+           }); 
+
+          
+           $("#want").click(function(){
+            console.log(is_want);
+                if(is_want){
+
+                   $("#want").removeClass("redheart");
+                   db.transaction(function(tx){
+                     tx.executeSql("delete from wantMovies where mID=? and uName=?",[mID,uName]);
+                 });
+                   is_want = false;
+
+                }else{
+                   $("#want").addClass("redheart");
+                   db.transaction(function(tx){
+                       tx.executeSql("insert into wantMovies values(?,?)",[uName,mID],function(){  
+
+                        },function(tx,error){
+                          console.log(error);
+                          });
+                    });
+                   is_want = true;
+                }
+
+           });
+
+           $("#watched").click(function(){
+            console.log(is_watched);
+                if(is_watched){
+
+                   $("#watched").removeClass("redheart");
+                   db.transaction(function(tx){
+                     tx.executeSql("delete from watchedMovies where mID=? and uName=?",[mID,uName]);
+                 });
+                   is_watched = false;
+
+                }else{
+                   $("#watched").addClass("redheart");
+                   db.transaction(function(tx){
+                       tx.executeSql("insert into watchedMovies values(?,?)",[uName,mID],function(){  
+
+                        },function(tx,error){
+                          console.log(error);
+                          });
+                    });
+                   is_watched = true;
+                }
+
+           });
+
+      }else{   //用户未登录，
+           $("#want").click(function(){
+                $("#alertPopup").popup("open");
+                sessionStorage.setItem("Nowhref","movieDetail/Detail.html");
+                setTimeout("window.location.href='../registe.html'",1500);
+                
+           });
+
+           $("#watched").click(function(){
+                $("#alertPopup").popup("open");
+                sessionStorage.setItem("Nowhref","movieDetail/Detail.html");
+                setTimeout("window.location.href='../registe.html'",1500);
+           });
+
+      }
+
+
+      $("#footer").click(function(){
+      	   window.location.href='choseCinema.html';
+      });
+
+      
+
+
+});
+
+//从数据库中读出数据，并且显示在当前的页面中
+function initPage(){
+        db.transaction(function(tx){
+
+          tx.executeSql("select * from movie where mID = '"+mID+"'",[],function(tx,results){  
+            var movie = results.rows.item(0);
+
+                    $("video").attr("src","../data/movie/"+movie.mName+"/video/index.mp4");
+
+                    $(".movieImg img").attr("src","../data/movie/"+movie.mName+"/photos/index.jpg");
+
+                    $("#name").text(movie.mName);
+                    $("#header h3").text(movie.mName);
+                    $("#showtime").text("上映时间："+movie.show_time);
+                    $("#director").text("导演:"+movie.director);
+                    $("#actors").text("演员:"+movie.actors);
+
+                    $("#mdetail").text(""+movie.details);
+
+                    var actors_str = movie.actors;
+                    var actors = actors_str.split(","); 
+
+                    var director_str = movie.director;
+                    var directors = director_str.split(",");
+
+                    for(var i = 0 ; i<directors.length ; i++){
+                      var str = "<div class='dAA'><img src='../data/movie/"+movie.mName+"/director/"+directors[i]+".jpg'><p>"+directors[i]+"</p><p>导演</p></div>";
+                        $(".gallery").append(str);
+                    }
+
+                    for(var i = 0 ; i<actors.length ; i++){
+                      var str = "<div class='dAA'><img src='../data/movie/"+movie.mName+"/actors/"+actors[i]+".jpg'><p>"+actors[i]+"</p></div>";
+                        $(".gallery").append(str);
+                    } 
+					
+					 for( i = 0; i<4;i++){
+				           var str="<div class='dramaimg'><img src='../data/movie/"+movie.mName+"/Drama/"+parseInt(i+1)+".jpg'></div>"; 
+						     
+						   $(".drama").append(str);
+						   $(".dramaimg").height($(".dramaimg").width());
+					 }          
+
+                    var score = movie.score;
+                    $(".star-active").css("width",score/10*100+"%");
+                    $(".right-txt b").text(score);
+
+        },function(tx,error){
+      });
+
+          tx.executeSql("select * from movieEvaluate where mID = ?",[mID],function(tx,results){  
+                    var len = results.rows.length,i;
+                    console.log(results);
+
+                    var str;
+                    if(len == 0){
+                        str = "<li><h3>暂无用户评价...</h3></li>"; 
+                        $("#assessDetail").append(str);
+                          $("#assessDetail").listview("refresh");
+
+                    }else if(len<2){
+                        for( i = 0; i<len;i++){
+                           var result = results.rows.item(i);
+                           str = "<li><img src='../data/img/userimg.png'><h3>"+result.uName+"</h3><p style='resize: none;height:auto;' readonly >"+result.assessment+"</p></li>";
+
+                           $("#assessDetail").append(str);
+                          $("#assessDetail").listview("refresh");
+                        }
+                    }else{
+                       for( i = 0; i<2;i++){
+                           var result = results.rows.item(i);
+                           str = "<li><img src='../data/img/userimg.png'><h3>"+result.uName+"</h3><p style='resize: none;height:auto;' readonly >"+result.assessment+"</p></li>";
+
+                           $("#assessDetail").append(str);
+                          $("#assessDetail").listview("refresh");
+                        }
+                        str = "<a href='showEvaluate.html' class='ui-link ui-btn ui-icon-arrow-r ui-btn-icon-right ui-shadow ui-corner-all' target='_top'>查看更多评论</a>";
+                        $("#assessDetail").append(str);
+                    }
+                    
+ 
+                    
+        },function(tx,error){
+           console.log(error);
+      });
+     });
+}
+
+//让视频显示第一帧
+function pauseVideo(){
+              $("video").trigger("pause");
+            $("video").removeClass('play');
+            $("video").addClass('pause');
+            $(".playvideo").removeClass("playvideohide");
+}
+</script>
+</html>

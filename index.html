@@ -1,0 +1,527 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Loading...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- jquery -->
+
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<link rel="stylesheet" href="css/my_theme.css" />
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+
+<!-- 地图导入 -->
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.8&key=77ac225a67a0722b75a3c29c46b2141e&plugin=AMap.Autocomplete&plugin=AMap.Geocoder"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+
+</head>
+<style type="text/css">
+    .load{
+		width:100%;
+		background-color:#FFF;
+		padding-top:40%;
+		color:#5bb0ba;
+		text-align:center;
+		}
+    .load img{
+		width:100%;
+		}
+</style>
+
+<body>
+<div class="load">
+ <img src="data/img/load.gif">
+ <h2>Loading....</h2>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+// JavaScript Document
+   var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom:10,
+        center: [118.816826, 32.078682]
+    }); 
+
+    
+    var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+    $(function(){
+
+    setTimeout(function(){ window.location.href="index1.html" }, 3500);
+    /*将数据导入数据库*/
+
+	$(".load").height($(window).height());
+    
+    $.ajax({
+         url:'json/movie.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToMovie(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });  
+
+    $.ajax({
+         url:'json/cinema.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToCinema(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/user.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToUser(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/seat.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToSeat(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/hall.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToHall(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/schedule.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToSchedule(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/order.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToOrderList(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/orderSeat.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToOrderSeat(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/wantMovies.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToWantMovies(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/watchedMovies.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToWatchedMovies(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+    $.ajax({
+         url:'json/movieEvaluate.json',   ///请求的地址
+       type:"get",       //请求的方法
+       dataType:"json",   //返回的数据类型 
+         success:function(data){
+          addToMovieEvaluate(data);
+ 
+       },  
+       error:function(XMLHttpRequest,textStatus,errorThrown){
+            console.log(errorThrown);
+       }   
+      
+      });
+
+
+
+ });
+
+
+
+//写入movie表中中 
+function addToMovie(movies){   
+  
+ db.transaction(function(tx){
+        for(var i in movies ){    //获取json里面的值
+           var mID = movies[i].mID;
+           var mName = movies[i].mName;
+           var score = movies[i].score;
+           var director = movies[i].director;
+           var actors = movies[i].actors;
+           var details = movies[i].details;
+           var show_time = movies[i].show_time
+           var is_show = movies[i].is_show;
+           
+            tx.executeSql("insert into movie values(?,?,?,?,?,?,?,?)",[mID,mName,score,director,actors,details,show_time,is_show],function(){  
+
+            },function(tx,error){
+              });
+        }
+
+    });
+ 
+}
+
+//写入cinema表中
+function addToCinema(cinemas){   
+
+ db.transaction(function(tx){
+        for(var i in cinemas ){    //获取json里面的值
+           var cID = cinemas[i].cID;
+           var cName = cinemas[i].cName;
+           var score = cinemas[i].score;
+           var loc = cinemas[i].loc;
+
+          //查询当前影院地址与现在位置的距离并且添加到到数据库中 
+          checkLoc(cID,cName,score,loc);
+
+        }
+
+    });
+ 
+}
+//查询当前影院地址与现在位置的距离并且添加到到数据库中 
+function checkLoc(cID,cName,score,loc){
+          var geocoder = new AMap.Geocoder({
+          city: "南京", //城市，默认：“全国”
+          radius: 1000 //范围，默认：500
+          });
+          var dis;
+        geocoder.getLocation(loc, function(status, result) {
+        //当前位置的坐标
+        var start = [118.816826, 32.078682]
+         
+          //
+          if (status === 'complete' && result.info === 'OK') {
+          
+              var lng = result.geocodes[0].location.getLng();
+              var lat = result.geocodes[0].location.getLat();
+
+              var cinemaLoc = result.geocodes[0].location;
+              //计算距离并且转换为km
+               dis = parseFloat(AMap.GeometryUtil.distance(cinemaLoc, start))/1000;
+              dis = dis.toFixed(1);
+              console.log(dis);
+         }
+
+      });
+ //添加到数据库中
+ db.transaction(function(tx){
+     tx.executeSql("insert into cinema values(?,?,?,?,?)",[cID,cName,score,loc,dis],function(){  
+                  console.log("添加成功");
+        },function(tx,error){
+                  console.log(error);
+     });
+   });
+           
+}
+
+//写入user表中
+function addToUser(users){   
+  
+ db.transaction(function(tx){
+        for(var i in users ){    //获取json里面的值    
+           var uName = users[i].uName;
+           var uPwd = users[i].uPwd;
+           var telephone = users[i].telephone;
+
+            tx.executeSql("insert into user values(?,?,?,?,?)",[uName,uPwd,telephone,"",""],function(){  
+
+            },function(tx,error){
+              console.log(error);
+              });
+        }
+
+    });
+ 
+}
+//写入影厅表
+function addToHall(halls){
+db.transaction(function(tx){
+    for(var i in halls){
+      var hallID = halls[i].hallID;
+      var cID = halls[i].cID;
+      var hallName = halls[i].hallName;
+      var desc = halls[i].desc;
+
+      tx.executeSql("insert into hall values(?,?,?,?)",[hallID,cID,hallName,desc],function(){  
+
+            },function(tx,error){
+      });
+     
+
+    }
+});
+}  
+
+//写入座位表
+function addToSeat(seats){
+db.transaction(function(tx){
+    for(var i in seats){
+      var sID = seats[i].sID;
+      var schID = seats[i].schID;
+      var row = seats[i].row;
+      var column = seats[i].column;
+      var is_active = seats[i].is_active;
+      tx.executeSql("insert into seat values(?,?,?,?,?)",[sID,schID,row,column,is_active],function(){  
+            
+            },function(tx,error){ 
+      });
+     
+
+    }
+});
+}
+
+//写入排片表
+function addToSchedule(schs){
+db.transaction(function(tx){
+    for(var i in schs){
+      var schID = schs[i].schID;
+      var mID = schs[i].mID;
+      var hallID = schs[i].hallID;
+      var cID = schs[i].cID;
+      var date = schs[i].date;
+      var beginTime = schs[i].beginTime;
+      var endTime = schs[i].endTime;
+      var price = schs[i].price;
+
+      tx.executeSql("insert into schedule values(?,?,?,?,?,?,?,?)",[schID,mID,hallID,cID,date,beginTime,endTime,price],function(){  
+            
+            },function(tx,error){
+      });
+     
+
+    }
+});
+}
+
+//写入排片表
+function addToOrderList(orders){
+db.transaction(function(tx){
+    for(var i in orders){
+      var orderID = orders[i].orderID;
+      var schID = orders[i].schID;
+      var uName = orders[i].uName;
+      var price = orders[i].price;
+      var is_pay = orders[i].is_pay;
+      var orderTime = orders[i].orderTime;
+
+      tx.executeSql("insert into orderList values(?,?,?,?,?,?)",[orderID,schID,uName,price,is_pay,orderTime],function(){  
+            
+            },function(tx,error){
+      });
+     
+
+    }
+});
+}
+
+//加入到订单座位表中
+function addToOrderSeat(oseats){
+db.transaction(function(tx){
+    for(var i in oseats){
+      var orderID = oseats[i].orderID;
+      var sID = oseats[i].sID;
+
+      tx.executeSql("insert into orderSeat values(?,?)",[orderID,sID],function(){  
+            
+            },function(tx,error){
+      });
+     
+
+    }
+});
+}
+
+//加入到想看电影表中
+function addToWantMovies(wms){
+db.transaction(function(tx){
+    for(var i in wms){
+      var uName = wms[i].uName;
+      var mID = wms[i].mID;
+
+      tx.executeSql("insert into wantMovies values(?,?)",[uName,mID],function(){  
+            
+            },function(tx,error){
+      });
+     
+
+    }
+});
+}
+
+//加入到看过电影表中
+function addToWatchedMovies(wms){
+db.transaction(function(tx){
+    for(var i in wms){
+      var uName = wms[i].uName;
+      var mID = wms[i].mID;
+
+      tx.executeSql("insert into watchedMovies values(?,?)",[uName,mID],function(){  
+            
+            },function(tx,error){
+      });
+     
+
+    }
+});
+}
+
+//加入到电影评价中
+function addToMovieEvaluate(wms){
+db.transaction(function(tx){
+    for(var i in wms){
+      var uName = wms[i].uName;
+      var mID = wms[i].mID;
+      var assessment = wms[i].assessment;
+
+      tx.executeSql("insert into movieEvaluate values(?,?,?)",[uName,mID,assessment],function(){  
+            
+            },function(tx,error){
+      });
+     
+
+    }
+});
+}
+
+
+
+/*创建web SQL*/
+/*1数据库的名称 2版本号 3表名 4数据库大小*/
+
+/*创建数据库*/
+
+creatSql();
+
+
+function creatSql(){   
+db.transaction(function(tx){
+  //movie
+  tx.executeSql("create table if not exists movie(mID PRIMARY KEY,mName,score,director,actors,details,show_time date,is_show)",
+  [],function(){},function(){});/*第一个回调函数表示成功时执行的方法，第二个回调函数表示失败时执行的方法。*/
+  //cinema
+  tx.executeSql("create table if not exists cinema(cID PRIMARY KEY,cName,score,loc,distance)",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists user(uName PRIMARY KEY,uPwd,telephone,email,sex)",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists wantMovies(uName,mID,PRIMARY KEY(uName,mID))",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists watchedMovies(uName,mID,PRIMARY KEY(uName,mID))",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists hall(hallID,cID,hallName,desc,PRIMARY KEY(hallID,cID))",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists seat(sID,schID,row,column,is_active,PRIMARY KEY(sID,schID))",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists schedule(schID PRIMARY KEY,mID,hallID,cID,date,beginTime,endTime,price)",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists orderList(orderID PRIMARY KEY,schID,uName,price,is_pay,orderTime)",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists orderSeat(orderID,sID,PRIMARY KEY(orderID,sID))",
+  [],function(){},function(){});
+
+  tx.executeSql("create table if not exists movieEvaluate(uName,mID,assessment,PRIMARY KEY(uName,mID))",
+  [],function(){},function(){});
+
+});
+}
+
+
+
+
+</script>
+
+</html>

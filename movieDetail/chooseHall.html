@@ -1,0 +1,602 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+
+<!--<link rel="stylesheet" href="css/cHall.css">-->
+<script type="text/javascript" src = "js/slidePhoto.js"></script>
+
+<link rel="stylesheet" href="../css/my_theme.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.icons.min.css" />
+
+
+</head>
+<style type="text/css">
+#header{
+  font-size:1.2em;
+  border:0px;}
+#header a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+  .photoShow{
+  position:relative;
+    /*设置高度和宽度为了单选框能够上去*/
+    width:100%;
+  height:32%;
+
+  margin:0px auto;
+  padding:0px;
+  float:left;
+  }
+.photoShow img{
+  width:100%;
+  height:100%;
+    }
+.contentcss{
+  padding:0px;}
+
+.liBorder {
+   border-bottom:1px solid red;
+  }
+#clicka{
+  color:#C00;}
+  
+.showUl{
+  margin:0px;}
+
+.htime{
+  width: 15%;
+  float: left;;
+  margin-top: 0.4em;
+  text-align: center;
+}
+.start{
+  font-size: 1.2em;
+}
+.end{
+ color:#999;
+ font-size: 0.8em; 
+ margin-top: 0.5em; 
+}
+
+.hInfo{
+  width:60%;
+  float:left;
+  margin-left:5%; }
+.hInfo p{
+  color:#999;
+}
+
+
+
+.hPrice{
+  width:20%;
+  float:left;
+  font-size:1.25em;
+  color:#C33;}
+
+.hloc{
+  width:20%;
+  float:left;
+  font-size:1em;
+  color:#999;
+  margin:0px;
+  }
+.hloc p{
+  margin:0px;}
+.ui-page-theme-a .ui-btn.ui-btn-active{
+      background-color: #f6f6f6;
+    border-color: #ddd;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;}
+.ui-page-theme-a  .ui-btn:focus{
+  box-shadow:none;}
+
+
+  .container{
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .slide{
+    width: 100%;
+    min-height: 180px;
+    overflow: hidden;
+    position: relative;
+	background-image:url(../data/img/movieImgBg.jpg);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+  }
+  .slide .img{
+    overflow: hidden;
+    position: absolute;
+    transition: width 0.4s,height 0.4s,top 0.4s,left 0.4s,z-index 0.4s;
+  }
+  .slide .img img{
+    width: calc(100% - 14px);
+    height: calc(100% - 14px);
+    margin: 7px;
+  }
+  .slide .img1{
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: -50%;
+    z-index: 1;
+  }
+  .slide .img2{
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: -20%;
+    z-index: 2;
+  }
+  .slide .img3{
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    z-index: 3;
+  }
+  .slide .img4{
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 60%;
+    z-index: 2;
+  }
+  .slide .img5{
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 110%;
+    z-index: 1;
+  }
+  .slide-bt{
+    position: absolute;
+    left: 50%;
+    bottom: 13%;
+    z-index: 10;
+  }
+  .slide-bt span{
+    width: 24px;
+    height: 8px;
+    background: #c9caca;
+    float: left;
+    margin: 5px;
+    border-radius: 4px;
+  }
+  .slide .slide-bt .on{
+    background: #ffd200;
+  }
+  button{
+    width: 50px;
+    margin: 20px;
+  }
+  
+
+  .contentcss{
+     padding:0px;}
+  #datenav li a {
+    padding: 0px;
+  }
+  .cinemaInfo{
+    width: 100%;
+	padding:0.5em;
+    margin: 0px auto;
+	padding-bottom:0px;
+	float:left;
+  }
+  
+   .cinemaInfo h3{
+	   width:90%;
+	   float:left;
+	   margin:0px;
+	   font-size:1.05em;
+	   white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
+   .cinemaInfo p{
+	   width:80%;
+	   float:left;
+	   margin:0px;
+	   color:#666;
+	   font-size:0.8em;
+	   white-space:nowrap; text-overflow:ellipsis; overflow:hidden;
+	   }
+  .posicon{
+	  width:17%;
+	  float:left;
+    padding:0px;
+   }
+  .posicon img{
+	  width:100%;
+    z-index: 10000;}
+   
+</style>
+
+
+<body>
+<div data-role="page">
+   <div data-role="header" class="headercss" id="header">
+      <a data-rel="back" data-icon="back" target="_top">返回</a>
+      <h1 id="cinemaName">幸福蓝海</h1>
+      <a class="posicon" ><img src="img/pos.png"></a>
+   </div>
+   
+   <div data-role="content" class="contentcss">
+
+        <div class="photoShow">
+            
+            
+            <div id="slide" class="slide" class="index-slide" alt="star">
+              <!-- 轮播图片数量可自行增减 -->
+              <div class="img"><img src="../data/movie/狄仁杰之四大天王/photos/horizontal.jpg"/></div>
+              <div class="img"><img src="../data/movie/西虹市首富/photos/horizontal.jpg"/></div>
+              <div class="img"><img src="../data/movie/爱情公寓/photos/horizontal.jpg"/></div>
+              <div class="img"><img src="../data/movie/狄仁杰之四大天王/photos/horizontal.jpg"/></div>
+              <div class="img"><img src="../data/movie/西虹市首富/photos/horizontal.jpg"/></div>
+              
+              <div class="slide-bt"></div>
+            </div>
+
+        </div>
+
+
+        <div data-role="tabs" >
+        <div data-role="navbar" id="datenav" >
+            <ul>
+              <li class="liBorder"><a href='#div1' id="aOne" class="linav"><p></p></a></li>
+              <li><a href='#div2' id="aTwo" class="linav"><p></p></a></li>
+              <li><a href='#div3' id="aThree" class="linav"><p></p></a></li>
+              <li><a href='#div4' id="aFour" class="linav"><p></p></a></li>
+            </ul>
+         </div>
+         
+             <br>
+             <div id="div1" class="showHall">
+                 <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                 </ul>
+             </div>
+         
+             <div id="div2" class="showHall">
+                 <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                 </ul>
+             </div>
+             
+             <div id="div3" class="showHall">
+                <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                 </ul>
+             </div>
+
+             <div id="div4" class="showHall">
+                <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                 </ul>
+             </div>
+         
+         </div>
+   </div>
+   
+  
+</div>
+
+<script>
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+var cID = sessionStorage.getItem("cID");
+var mID = sessionStorage.getItem("mID");
+var uName = sessionStorage.getItem("uName");
+
+  $(document).ready(function(e) {
+    //初始化
+    height = $(window).height();
+	  d1 = $(".headercss").height();
+	  d2 = $(".footercss").height();
+	  
+	  $(".contentcss").css("height",height-d1-d2);
+	  $(".img1").css("height",$(".photoShow").height());
+	  $(window).resize(function(){
+		  height = $(window).height();
+		  d1 = $(".headercss").height();
+		  d2 = $(".footercss").height();
+		  
+		  $(".contentcss").css("height",height-d1-d2);
+		  $(".img1").css("height",$(".photoShow").height());
+   //执行代码块
+
+      });
+   
+    //初始化页面
+    initPage();
+
+
+     $(".img:eq(0)").removeAttr("style");
+
+      $("#datenav ul li").click(function(){
+          $(".liBorder").removeClass("liBorder");
+          $(this).addClass("liBorder");        
+     });
+    
+     $(".showUl").on("click","li",function(){
+
+          if(uName == null){
+               alert("请先登录~");
+               sessionStorage.setItem("Nowhref","movieDetail/chooseHall.html");
+               window.location.href="../registe.html";
+          }else{
+              schID = $(this).attr("schID");
+              sessionStorage.setItem("schID",schID);
+              sessionStorage.setItem("mID",mID);
+              window.location.href="seat.html";
+          }
+     });
+
+     $(".posicon").click(function(){
+         console.log("loc");
+         window.location.href="cinemaMap.html";c
+
+     });
+
+    
+     getDate();
+
+     changeli();
+     changeEvent();
+
+  });
+
+//初始化页面
+  function initPage(){
+        db.transaction(function(tx){
+        tx.executeSql("select mID,mName from movie where is_show='True'",[],function(tx,rs){
+            var len = rs.rows.length,i;
+            console.log(rs.rows);
+
+            for( i = 0; i <len ; i++){
+                var result = rs.rows.item(i);
+               
+                var str = "../data/movie/"+result.mName+"/photos/horizontal.jpg";
+
+                $(".img:eq("+i+") img").attr("src",str);
+                $(".img:eq("+i+")").attr("mID",result.mID);
+
+                if(mID == result.mID){
+                    tz(i+1);
+                }
+
+            }
+           // $(".img:eq(0)").removeAttr("style");
+        },function(tx, error){
+            console.log(error.message);
+        });
+
+        tx.executeSql("select cName,loc from cinema where cID = '"+cID+"'",[],function(tx,rs){
+             console.log(rs);
+            $("#cinemaName").text(rs.rows.item(0).cName);
+
+           // $(".img:eq(0)").removeAttr("style");
+        },function(tx, error){
+            console.log(error);
+        });
+
+      });  
+ 
+  }
+
+    function changeEvent() {
+        var _start = 0, _end = 0, _content = document.getElementById("slide");
+        _content.addEventListener("touchstart", touchStart, false);
+        _content.addEventListener("touchmove", touchMove, false);
+        _content.addEventListener("touchend", touchEnd, false);
+        function touchStart(event) {
+          var touch = event.targetTouches[0];
+          _start = touch.pageX;
+        }
+        function touchMove(event) {
+          var touch = event.targetTouches[0];
+          _end = (_start - touch.pageX);
+        }
+
+        function touchEnd(event) {
+          if (_end < -100 || _end > 100) {
+            changeMID();
+            _end=0;
+          }
+        }
+        
+        $(".slide-bt").on("click",function(){
+            setTimeout(changeMID,1);
+           
+        });
+        
+
+      }
+  function changeMID(){
+
+      mID = $(".img3").attr("mID");
+      console.log(mID);
+      changeli();
+
+  };
+
+  function getDate(){
+      var date = new Date();
+      var month = date.getMonth() + 1;
+  
+      var a = [];
+
+      if (month >= 1 && month <= 9) {
+            month = "0" + month;
+       }
+
+       a[0] = date.getDate();
+       if (a[0] >= 0 && a[0]  <= 9) {
+               a[0]  = "0" + a[0] ;
+            }
+        for(var i=1;i<4;i++){3
+          a[i] = parseInt(a[i-1])+1;
+
+            if (a[i] >= 0 && a[i]  <= 9) {
+               a[i]  = "0" + a[i] ;
+            }
+
+        }
+
+      $("#aOne p").text("今天"+month +"-"+ a[0]);
+      $("#aTwo p").text(month +"-"+  a[1]);
+      $("#aThree p").text(month +"-"+  a[2]);
+      $("#aFour p").text(month +"-"+  a[3]);
+
+      $("#aOne p").attr("id",month +"-"+ a[0]);
+      $("#aTwo p").attr("id",month +"-"+ a[1]);
+      $("#aThree p").attr("id",month +"-"+ a[2]);
+      $("#aFour p").attr("id",month +"-"+ a[3]);
+      
+  }
+
+
+   //将数据库中的值转换为date
+ function stringToDate(dateStr){ 
+    
+    var dateArr = dateStr.split("-"); 
+    var year = parseInt(dateArr[0]); 
+    var month; 
+    //处理月份为04这样的情况                          
+    if(dateArr[1].indexOf("0") == 0){ 
+        month = parseInt(dateArr[1].substring(1)); 
+    }else{ 
+         month = parseInt(dateArr[1]); 
+    } 
+
+    var day = parseInt(dateArr[2]); 
+
+    var date = new Date(year,month -1,day); 
+    
+    return date; 
+}
+
+//当时间变化时相应的列表内容也会改变
+function changeli(){
+     console.log(mID);
+     $(".showHall ul li").remove();
+     db.transaction(function(tx){
+     var selectstr = "select hallName,desc,hall.hallID as hallID ,beginTime,endTime,price,mID,date,schID "
+                    +"From schedule,hall "
+                    +"Where schedule.cID = '"+cID+"' AND schedule.cID = hall.cID AND schedule.mID='"+mID+"' AND schedule.hallID=hall.hallID";
+
+     tx.executeSql(selectstr,[],function(tx,results){
+            var len = results.rows.length,i;
+            console.log(results);
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var time = hours+":"+minutes;
+
+            for( i = 0 ;i< len ;i++){
+                var result = results.rows.item(i);
+                var hallName = result.hallName;
+                var desc = result.desc;
+                var hallID = result.hallID;
+                var beginTime = result.beginTime;
+                var endTime = result.endTime;
+                var price = result.price;
+                var mID = result.mID;
+                var cDate = result.date;
+                var schID=result.schID;
+
+               //即将上映
+                  var dateFeedBack  = stringToDate(cDate);
+                  
+                  var days1 = parseInt(dateFeedBack.getTime()/(1000*60*60*24));
+                  var days2 = parseInt(date.getTime()/(1000*60*60*24));
+                  var day = days1-days2;
+                  var appendstr = "<li schID='"+schID+"'> <a ><div class='htime'>"
+                                 +"<div class='start'>"+beginTime+"</div>"
+                                 +"<div class='end'>"+endTime+"</div></div>"
+                                 +"<div class='hInfo'><h6>"+desc+"</h6><p>"+hallName+"</p></div>"
+                                 +"<div class='hPrice'><p><b>"+price+"元</b></p></div>";
+
+                  var flag = true;
+                  switch(day){
+                    case -1:
+                        var divstr="#div"+parseInt(day+2);
+                    break;
+                    case 0:
+                        var divstr="#div"+parseInt(day+2);
+                    break;
+                    case 1:
+                        var divstr="#div"+parseInt(day+2);
+                    break;
+                    case 2:
+                        var divstr="#div"+parseInt(day+2);
+                    break;
+                    default: flag = false;
+                  }
+                   console.log(day);
+
+                  if(flag){
+                    if(day==-1){  //如果是今天，判断时间
+                        if(is_pass(beginTime,time)){
+                             $(divstr+" ul").append(appendstr);
+                             $(divstr+" ul").listview("refresh");
+                        }
+
+                    }else{
+                       $(divstr+" ul").append(appendstr);
+                       $(divstr+" ul").listview("refresh");
+                    }
+                    
+                  }
+
+
+                    
+                
+            }                 
+      },function(tx,error){
+        console.log(error);
+    }); 
+
+                              
+  },function(tx,error){
+});
+
+function is_pass(beginTime,time){
+    var one = beginTime.split(":");
+    var now = time.split(":");
+    
+    console.log(one[0]+" "+now[0]);
+
+    if(parseInt(one[0])>parseInt(now[0])){
+       console.log("true");
+       return true;
+        
+    }else if(parseInt(one[0])==parseInt(now[0])){
+        if(one[1]>now[1]){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+       return false;
+    }
+}
+
+}
+</script>
+
+
+</body>
+</html>

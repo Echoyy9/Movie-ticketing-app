@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<style>
+h3{
+	text-align:center;
+	margin-bottom:0.1em;}
+.contentcss{
+	padding:0px;
+	}
+#header{
+	background-color:#5bb0ba;
+	color:#FFF;
+	text-shadow:none;
+	font-size:1.2em;
+	border:0px;}
+#header a{
+	background-color:#5bb0ba;
+	box-shadow:none;
+	border:0px;
+	font-size:0.8em;
+	color:#FFF;
+	text-shadow:none;
+	}
+#imgGallery{
+	width:100%;
+	}
+.dramaimg{
+	width:24%;
+	float:left;
+	margin-right:1%;
+	margin-bottom:1%;
+	overflow: hidden;
+	
+	}
+.dramaimg img{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+        
+
+
+</style>
+
+<body>
+    <div data-role="page" id="pageone">
+      <div data-role="header" class="headercss" id="header" data-position="fixed">
+        <h3 id="mName">电影名</h3>
+        <a class="giveUpPay" data-rel="back" data-icon="back" >返回</a>
+       
+      </div>
+    
+      <div data-role="content" class="contentcss"> 
+         
+          <div id="imgGallery">
+
+          </div>
+           
+
+         
+         <!-- 单机按钮后显示原图 -->
+
+        <div data-role="popup" id="pop"  data-overlay-theme="b" data-theme="b">
+            <a href="#" data-rel="back"
+            class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">close</a>
+             <!-- 点击其他地方将当前的对话窗口取消掉date-rel="back"  ui-conrer-all为元素添加圆角 shadow加载阴影，
+         设定主题为a白色，给予图片ui-ico-delete 内容不显示用ui-btn-icon-notext;让按钮显示在右边，ui-btn-right;
+         ui-btn-可以取值为left right none-->
+            <img src="../data/movie/狄仁杰之四大天王/Drama/2.jpg" id="popphoto" >
+        </div>
+      
+      </div>
+      
+
+
+</body>
+
+<script>
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+//从数据库中导入详细信息
+var mID = sessionStorage.getItem("mID");
+var mName;
+  $(function(){
+	  $(".dramaimg").height($(".dramaimg").width());
+           db.transaction(function(tx){
+              tx.executeSql("select mName from movie where mID = ?",[mID],function(tx,results){  
+                        var i,len = results.rows.length;
+						mName = results.rows.item(0).mName;
+                        var num = 10;
+						$("#mName").text(mName);
+					     for( i = 0; i<num;i++){
+				           var str="<div class='dramaimg'><a  id='img"+parseInt(i+1)+"' data-rel='popup' data-position-to='window' data-transition='fade' class='imgPopup'><img src='../data/movie/"+results.rows.item(0).mName+"/Drama/"+parseInt(i+1)+".jpg'></a></div>"; 
+						     
+						   $("#imgGallery").append(str);
+						   $(".dramaimg").height($(".dramaimg").width());
+						 }
+                                        
+            },function(tx,error){
+          });	 
+		 });
+		 
+	   $("#imgGallery").on("click",".imgPopup",function(){
+		        var id = $(this).attr("id").slice(3);
+				console.log(id);
+				
+				$("#popphoto").attr("src","../data/movie/"+mName+"/Drama/"+id+".jpg");
+				$("#pop").popup("open");
+		   })
+	  
+   });
+   
+  
+
+</script>
+</html>
+

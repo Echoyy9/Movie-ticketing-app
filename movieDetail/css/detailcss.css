@@ -1,0 +1,171 @@
+   .contentcss{
+	   padding:0px;}
+   .videoShow{
+	   width:100%;
+	   height:30%;
+	   margin-top: 12.5%;
+	    }
+   .videoShow video{
+	   height:100%;}
+	   
+	/*想看和看过按钮*/
+    .wbutton{
+		float:left;
+		width:40%;
+		
+		margin:5%;
+		margin-top:2%;
+		margin-bottom:0.5em;
+		text-align:center;
+		background-color:#FFF;
+		box-shadow: 0 1px 0 #f3f3f3;
+		}
+		
+    
+     .wbutton a{
+		 padding:0.4em;
+		 margin:0px;
+		}
+	
+	/*设置按钮背景为红色*/	 
+     /*#want:after{
+		background-color:#F00;}*/
+	.redheart:after{
+		background-color:#F00;}
+		
+    /*电影的信息*/
+	.movieinfo{
+		position:absolute;
+		width:100%;
+		height:85%;
+		top:43%;
+		background-color:#EAEAEA;
+		font-size: 0.8em;
+
+	}
+	.info{
+		width:100%;
+		height:35%;
+		padding:0px;
+		margin:0px;
+		background-color:#FFF;
+		float: left;}
+	/*海报*/
+	.movieImg{
+		width:25%;
+		height:66%;
+		margin:2%;
+		margin-bottom:1%;
+		float:left;
+		}
+	.movieImg img{
+		width:100%;
+		height:100%;
+		
+		}
+	/*说明*/	
+	#mName{
+		width:65%;
+		height:66%;
+		margin:2%;
+		float:left;
+		margin-bottom:1%;
+		}
+	#mName p{
+		margin:0.6em;}
+
+
+		
+	.detail{
+		background-color:#CCC;
+		}
+		
+	/*评分*/
+	.stars-bg{
+    position: relative;
+    display: inline-block;
+    height: 19px;
+    width: 157px;
+    background: url(../../data/img/scoreStar.jpg) 0 0;
+	float:left;
+}
+.star-active{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(../../data/img/scoreStar.jpg) 0 -24px;
+	
+}
+.star-eval{
+	height:20px;
+	float:left;
+margin-left: 0.5em;}
+.right-txt{
+	float:left;
+	color:#F93;
+    margin-left: 0.5em;
+	font-size:1.3em; 
+}
+	
+	/*导演和演员*/
+.DirectorAndActor{
+	width:200%;
+	height:37%;
+	margin-bottom:6%;
+	float:left;
+	background-color:#FFF;}
+.DirectorAndActor p{
+	margin:0.7em;
+	margin-bottom:1px;
+	
+	}
+.dAA{
+	width:10%;
+	height:75%;
+	margin:0.7em;
+	text-align:center;
+	float:left;
+	}
+.dAA p{
+	margin:0px;
+	font-size:0.2em;}
+.dAA img{
+	width:100%;
+	}
+.gallery{
+	position:absolute;	
+	width:200%;
+	height:25%;
+	}
+/*详情*/
+
+.detail{
+	width:100%;
+	background-color:#FFF;
+	float:left;
+	margin-top:2%;;
+	}
+	
+/*返回和主页*/
+.headercss a{
+	margin:0px;
+	}
+
+#header a{
+    background-color: #5bb0ba;
+    border: 0px;
+    box-shadow: none;
+    color: #ffffff;
+    text-shadow:none;
+    font-family: sans-serif ;
+    font-size: 1em;
+}
+#header h3{
+	font-size: 1.2em;
+} 
+#footer h3{
+	font-size: 1em;
+	text-shadow: none;
+}

@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>基本地图展示</title>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <script src="https://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.8&key=77ac225a67a0722b75a3c29c46b2141e&plugin=AMap.Autocomplete&plugin=AMap.Geocoder"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<style type="text/css">
+    #back{
+       position: absolute;
+       z-index: 999;
+    }
+
+    #back:after {
+        background-color: #5bb0ba ;
+    }
+</style>
+<body>
+<a data-rel = "back" data-role="button" data-icon="back"  id="back">返回</a>
+<div id="container">
+    
+</div>
+
+<script>
+
+    var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+    var cID = sessionStorage.getItem("cID");
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom:11,
+        center: [118.816826, 32.078682]
+    });
+
+    $(function(){
+        
+        db.transaction(function(tx){
+
+        tx.executeSql("select cName,loc from cinema where cID = '"+cID+"'",[],function(tx,rs){
+             console.log(rs);
+             cName = rs.rows.item(0).loc;
+
+             geocoder(cName);
+        },function(tx, error){
+            console.log(error);
+        });
+
+      });  
+
+    
+    });
+    
+        
+    function geocoder(place) {
+        var geocoder = new AMap.Geocoder({
+            city: "南京", //城市，默认：“全国”
+            radius: 1000 //范围，默认：500
+        });
+        //地理编码,返回地理编码结果
+        geocoder.getLocation(place, function(status, result) {
+            if (status === 'complete' && result.info === 'OK') {
+                geocoder_CallBack(place,result);
+            }
+        });
+    }
+    
+    function addMarker(i, d) {
+        var marker = new AMap.Marker({
+            map: map,
+            position: [ d.location.getLng(),  d.location.getLat()]
+        });
+        
+        var infoWindow = new AMap.InfoWindow({
+            content: d.formattedAddress,
+            offset: {x: 0, y: -30}
+        });
+        
+        marker.on("mouseover", function(e) {
+            infoWindow.open(map, marker.getPosition());
+        });
+    }
+    
+    //地理编码返回结果展示
+    function geocoder_CallBack(place,data) {
+        if($("#result").children("#"+place).len > 0){
+           return 0;
+        }
+        
+        var resultStr = "";
+        //地理编码结果数组
+        var geocode = data.geocodes;
+        for (var i = 0; i < geocode.length; i++) {
+            //拼接输出html
+          /*  resultStr += "<span style=\"font-size: 12px;padding:0px 0 4px 2px; border-bottom:1px solid #C1FFC1;\">" + "<b>地址</b>：" + geocode[i].formattedAddress + "" + "&nbsp;&nbsp;<b>的地理编码结果是:</b><b>&nbsp;&nbsp;&nbsp;&nbsp;坐标</b>：" + geocode[i].location.getLng() + ", " + geocode[i].location.getLat() + "" + "<b>&nbsp;&nbsp;&nbsp;&nbsp;匹配级别</b>：" + geocode[i].level + "</span>";*/
+            
+            resultStr += "<p style=\"font-size: 12px;padding:0px 0 4px 2px; border-bottom:1px solid #C1FFC1;\" lng='"+geocode[i].location.getLng()+"' lat='"+geocode[i].location.getLat()+"' class = 'place'>" + geocode[i].location.getLng()+ "," +geocode[i].location.getLat() + "</p>";
+                        
+            console.log(geocode[i].location.getLng() + ", " + geocode[i].location.getLat());
+          
+            addMarker(i, geocode[i]);
+        }
+        map.setFitView();
+       // document.getElementById("result").innerHTML = resultStr;
+        $("#result").append(resultStr);
+    
+    }   
+
+</script>
+</body>
+</html>

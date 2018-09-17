@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* CSS Document */
+
+.img1{
+  width:100%; 
+  height: 100%;
+  }
+
+/*轮播图片的设置*/
+.photoShow{
+  position:relative;
+    /*设置高度和宽度为了单选框能够上去*/
+    width:100%;
+  height:35%;
+
+  margin:0px auto;
+  padding:0px;
+  }
+
+/*按钮*/
+.rdodiv{
+  position:absolute;
+  bottom:4%;
+  z-index:999;
+  left:32%;
+  width:100%;
+  }
+.rdodiv input{
+  width:3%;}
+
+
+/*网页content部分*/
+.contentcss{
+  padding:0px;}
+  
+#recommend{
+  width:100%;
+  height:30%;
+  
+  padding-top:0px;
+  padding-bottom: 0.1em;
+  }
+  
+
+/*推荐电影的列表*/
+.reclist{
+  width:25%;
+  height:75%;
+  margin-left:5%;
+  background-color:#000;
+  float:left;
+  /*背景自适应*/
+  background-repeat:no-repeat;
+    background-size:100% 100%;
+  -moz-background-size:100% 100%;}
+  
+.reclist img{
+  width:100%;
+  height:100%;}
+  
+.mScore{
+  width:95%;
+  background: #000;
+  height:12%;
+  padding-left:5%;
+  /*渐变*/
+  background: -webkit-linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0));
+  background: -moz-linear-gradient(rgba(255,255,255,1) 100%,rgba(255,255,255,0) 0%);; /*FireFox*/
+  background: -o-linear-gradient(rgba(255,255,255,1) 100%,rgba(255,255,255,0) 0%);  /* Opear */
+  background: -ms-linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0)); /*IE10及IE10+*/
+  }
+.mScore p{
+  margin:0px;
+  padding:0px;
+  font-size:14px;
+  color:#F90;
+  }
+p{
+  margin-left:33%;
+  text-shadow:0px 0px 0px;}
+
+/*热门电影样式*/
+.hotMovie{
+  padding:0px;
+  }
+
+#hotMovieList li h3{
+  font-size: 1em;
+  font-weight: bold;
+  margin:0px;
+  color:#F90;
+}
+#hotMovieList li p{
+  margin: 0px;
+}
+#hotMovieList li h4{
+  margin: 0px;
+  margin-right: 1em;
+  float: left;
+
+}
+#hotMovieList img{
+  max-height: 99%;
+}
+
+/*底部样式*/
+.footercss{
+  border-color: #ddd;
+  border: 0px;
+}
+
+.title p{
+  color:#ffffff;
+  font-size:1em;
+  margin: 0px;
+
+
+}
+.title{
+  margin: 0px;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  background-color: #5bb0ba;
+  text-align: center;
+  
+  padding: 0.5em;
+  border-color: 1px #5bb0ba;
+  border-radius: 0.7em;
+}

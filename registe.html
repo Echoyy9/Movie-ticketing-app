@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登陆和注册</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" type="text/css" href="css/registemain.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<link rel="stylesheet" href="css/my_theme.css" />
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />	
+</head>
+
+<body>
+<!--登陆页面-->
+<div data-role="page" id="signIn">
+
+    <div data-role="header" id="signIn">
+        <h1 role="heading">欢迎登陆</h1>
+    </div>
+
+    <div data-role="content" >
+        
+        <form method="get" action="">
+
+           
+                <label for="name" style=" font-family:'Helvetica';">用户名或手机号:</label>
+
+                <input type="text" name="name" id="aName" placeholder="请输入用户名或手机号">
+
+                <br/>
+
+                <label for="password">密码:</label>
+
+                <input type="password" name="password" id="auPwd"  placeholder="请输入密码">
+                <div style="margin-top: 20%;">
+                    <a href="#signIn" data-role="button" data-transition="flow" onClick="checkUser()">登录</a>
+                    <a href="#signUp" data-role="button" data-transition="flip">注册</a>
+                </div>
+         
+
+        </form>
+        
+    </div>
+
+
+
+</div>
+<!--注册页面-->
+<div data-role="page" id="signUp">
+
+    <div data-role="header">
+        <h1>欢迎注册</h1>
+    </div>
+
+    <div data-role="content">
+        <form method="get" action="">
+
+             <label for="uName">姓名:</label>
+
+             <input type="text" name="name" id="uName" placeholder="请输入用户名" >
+             
+            
+   
+
+        
+            <label for="uPwd">密码:</label>
+
+            <input type="password" name="password" id="uPwd" placeholder="请输入密码">
+
+            
+            <label for="RuPwd">重复密码:</label>
+
+            <input type="password" name="password" id="RuPwd" placeholder="请再次输入密码">
+
+            <label for="telePhone">手机号:</label>
+
+            <input type="tel" name="password" id="telephone" placeholder="请输入手机号">
+            
+            
+            <div style="margin-top:4em;">
+                <button id="infoSubmit" onClick="addToSql()">确定</button>
+                <a href="#signIn" data-role="button" data-transition="flow">登录</a>
+              
+            </div>
+  
+        </form>
+    </div>
+
+
+
+</div>
+</body>
+<script>
+    var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+    var nameflag = false ;
+    var uPwdflag = false;
+    var phoneflag = false;
+    $(function(){
+    	$("#infoSubmit").attr({"disabled":"disabled"});
+
+        $("#infoSubmit").click(function(){
+        	//获取值添加到数据库中
+            var  name = $("#uName").val();
+            var  uPwd = $("#uPwd").val();
+            var  tel = $("#telephone").val();
+            addUser(name,uPwd,tel);
+
+
+        });
+
+
+	  $("#uName").blur(function(){   //判断用户名
+  
+         nameflag = false ;   //能否提交的决定参数
+          var name = $(this).val();
+       if(name != null && name != ''){  //先判断字段是否输入
+  	          
+  	       selectName(name);
+
+          }else{
+
+			$("#checkName").remove();
+			 $("#uName").css("float","inherit");
+          }
+
+          canSubmit();  //判断此时能否提交
+
+
+	  }); 
+
+      $("#RuPwd").blur(function(){  //判断第二次密码是否正确
+	        
+	        uPwdflag = false;
+	        var uPwd = $("#uPwd").val();
+	        var RuPwd = $("#RuPwd").val();
+
+	        if(uPwd != null && uPwd != ''){   //先判断字段是否输入
+
+	        	if(RuPwd != null && RuPwd != ''){
+
+	        		 
+	        		 checkuPwd(uPwd,RuPwd);
+	        	}else{
+
+$("#checkRuPwd").remove();
+ $("#RuPwd").css("float","inherit");
+          }
+	        }
+	        canSubmit();
+
+	   });
+
+       
+       $("#telephone").blur(function(){
+       	    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+
+			 if(!myreg.test($(this).val()))
+			 {
+			   
+			 }else{
+			 	phoneflag  = true;
+			 	canSubmit();
+			 }
+       });
+
+ });  
+
+
+function checkuPwd(uPwd,RuPwd){   //判断第二次密码是否输入正确  并显示相应的样式
+
+	if($("#checkRuPwd").length<=0){
+
+			 $("#RuPwd").parent().append("<a id='checkRuPwd' class='ui-btn ui-corner-all  ui-btn-icon-notext RuPwdbutton'></a>");
+		
+	}
+
+	if(RuPwd != uPwd){
+	      console.log("两次密码必须一致");
+          if( $("#checkRuPwd").hasClass("ui-icon-check") ){
+	         	$("#checkRuPwd").removeClass("ui-icon-check");
+	         	$("#checkRuPwd").addClass("ui-icon-delete");
+	         }else if($("#checkRuPwd").hasClass("ui-icon-delete")){
+
+	         }else{
+	         	$("#checkRuPwd").addClass("ui-icon-delete");
+	         }
+	         uPwdflag=false;
+	         
+	       }else{
+				    console.log("一致");
+			if( $("#checkRuPwd").hasClass("ui-icon-delete") ){
+				         	$("#checkRuPwd").removeClass("ui-icon-delete");
+				         	$("#checkRuPwd").addClass("ui-icon-check");
+
+				         	
+				         }else if($("#checkRuPwd").hasClass("ui-icon-check")){
+
+				         }else{
+				         	$("#checkRuPwd").addClass("ui-icon-check");
+				         }
+				         uPwdflag=true;
+				         
+					  	
+				}
+
+					 $("#RuPwd").css("float","left");
+					  var len=$("#RuPwd").parent().width(); 
+					  var subLen = $(".RuPwdbutton").innerWidth();
+					 
+					 console.log(len-subLen-5+"px");
+					  $(".RuPwdbutton").css("margin-left",len-subLen-5+"px");
+
+
+}
+
+
+
+				/*添加一条数据*/
+	function addUser(name,uPwd,tel){
+		db.transaction(function(tx){
+	        tx.executeSql("insert into user values(?,?,?,?,?)",[name,uPwd,tel,"",""],function(){  
+	        	alert("注册成功");
+        	window.location.href='#signIn';
+				},function(tx,error){
+					console.log(error);
+			});
+
+        	
+
+			});
+
+
+			
+		
+	}
+     
+	/*查询数据*/
+
+
+
+	function selectName(name){  //判断名字是否重复，并且修改相应的样式
+	    if($("#checkName").length<=0){
+
+			 $("#uName").parent().append("<a id='checkName' class='ui-btn ui-corner-all  ui-btn-icon-notext unamebutton'></a>");
+		
+		 }
+         
+		name = "'"+name+"'";
+
+		db.transaction(function(tx){
+			tx.executeSql("select * from user where uName="+name,[],function(tx,rs){
+			 
+				if(rs.rows.length>0){
+					console.log("查询成功"); 
+		  	if( $("#checkName").hasClass("ui-icon-check") ){
+	         	$("#checkName").removeClass("ui-icon-check");
+	         	$("#checkName").addClass("ui-icon-delete");
+	         }else if($("#checkName").hasClass("ui-icon-delete")){
+
+	         }else{
+	         	$("#checkName").addClass("ui-icon-delete");
+	         }
+	         
+             nameflag = false;
+
+				}else{
+
+					console.log("查询失败"); 
+	         if( $("#checkName").hasClass("ui-icon-delete") ){
+	         	$("#checkName").removeClass("ui-icon-delete");
+	         	$("#checkName").addClass("ui-icon-check");
+
+	         	
+	         }else if($("#checkName").hasClass("ui-icon-check")){
+
+	         }else{
+	         	$("#checkName").addClass("ui-icon-check");
+	         }
+	            
+            nameflag=true;
+	         
+
+				}
+
+
+				
+			},function(tx, error){
+				console.log(error.message);
+				console.log("select * from user where uName="+name);
+				return false;
+			});
+		});
+			         $("#uName").css("float","left");
+		  var len=$("#uName").parent().width(); 
+		  var subLen = $(".unamebutton").innerWidth();
+		 
+		 console.log(len-subLen-5+"px");
+		  $(".unamebutton").css("margin-left",len-subLen-5+"px");
+	}
+
+
+    function canSubmit(){  //能否提交
+        if(nameflag == true && uPwdflag == true && phoneflag == true){
+            $("#infoSubmit").removeAttr("disabled");//将按钮可用
+        }else{
+        	$("#infoSubmit").attr({"disabled":"disabled"});  //按钮不可用
+        }
+    }
+
+    function checkUser(){  //登陆判断
+	    if($("#checkName").length<=0){
+
+			 $("#uName").parent().append("<a id='checkName' class='ui-btn ui-corner-all  ui-btn-icon-notext unamebutton'></a>");
+		
+		 }
+
+         
+		name = $("#aName").val();
+        uPwd = $("#auPwd").val();
+
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if(!myreg.test(name)){
+			db.transaction(function(tx){
+				tx.executeSql("select * from user where uName='"+name+"' and uPwd='"+uPwd+"'",[],function(tx,rs){
+				 
+					if(rs.rows.length>0){
+						alert("登陆成功"); 
+						sessionStorage.setItem("uName",name);
+						window.location.href = sessionStorage.getItem("Nowhref");
+			
+					}else{
+
+						alert("用户名或密码错误"); 
+
+					}
+
+				},function(tx, error){
+					console.log(error.message);
+					return false;
+				});
+			});	        	
+        }else{
+        	db.transaction(function(tx){
+				tx.executeSql("select * from user where telePhone='"+name+"' and uPwd='"+uPwd+"'",[],function(tx,rs){
+				 
+					if(rs.rows.length>0){
+						alert("登陆成功"); 
+						sessionStorage.setItem("uName",rs.rows.item(0).uName);
+						window.location.href = sessionStorage.getItem("Nowhref");
+			
+					}else{
+
+						alert("用户名或密码错误"); 
+
+					}
+
+				},function(tx, error){
+					console.log(error.message);
+					return false;
+				});
+			});	 
+        }
+
+
+
+
+    }
+
+   
+	
+</script>
+</html>

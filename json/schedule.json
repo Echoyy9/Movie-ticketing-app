@@ -1,0 +1,220 @@
+[
+    { "schID":"1","mID":"2","hallID":"5","cID":"1","date":"2018-08-09","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+    { "schID":"2","mID":"2","hallID":"5","cID":"1","date":"2018-08-09","beginTime":"14:40","endTime":"16:52","price":"39.5"},
+    { "schID":"3","mID":"2","hallID":"5","cID":"1","date":"2018-08-09","beginTime":"17:15","endTime":"19:27","price":"39.5"},
+    { "schID":"4","mID":"2","hallID":"7","cID":"1","date":"2018-08-09","beginTime":"21:00","endTime":"23:12","price":"41.5"},
+    { "schID":"5","mID":"2","hallID":"5","cID":"1","date":"2018-08-09","beginTime":"22:15","endTime":"00:27","price":"39.5"},
+
+    { "schID":"6","mID":"2","hallID":"5","cID":"1","date":"2018-08-10","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+    { "schID":"7","mID":"2","hallID":"5","cID":"1","date":"2018-08-10","beginTime":"14:40","endTime":"16:52","price":"39.5"},
+    { "schID":"8","mID":"2","hallID":"5","cID":"1","date":"2018-08-10","beginTime":"17:15","endTime":"19:27","price":"39.5"},
+    { "schID":"9","mID":"2","hallID":"7","cID":"1","date":"2018-08-10","beginTime":"21:00","endTime":"23:12","price":"41.5"},
+    { "schID":"10","mID":"2","hallID":"5","cID":"1","date":"2018-08-10","beginTime":"22:15","endTime":"00:27","price":"39.5"},
+
+    { "schID":"11","mID":"2","hallID":"5","cID":"1","date":"2018-08-11","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+    { "schID":"12","mID":"2","hallID":"5","cID":"1","date":"2018-08-11","beginTime":"14:40","endTime":"16:52","price":"39.5"},
+    { "schID":"13","mID":"2","hallID":"5","cID":"1","date":"2018-08-11","beginTime":"17:15","endTime":"19:27","price":"39.5"},
+    { "schID":"14","mID":"2","hallID":"7","cID":"1","date":"2018-08-11","beginTime":"21:00","endTime":"23:12","price":"41.5"},
+    { "schID":"15","mID":"2","hallID":"5","cID":"1","date":"2018-08-11","beginTime":"22:15","endTime":"00:27","price":"39.5"},
+
+    { "schID":"16","mID":"4","hallID":"3","cID":"1","date":"2018-08-09","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+    { "schID":"17","mID":"4","hallID":"3","cID":"1","date":"2018-08-09","beginTime":"13:45","endTime":"15:27","price":"29.5"},
+    { "schID":"18","mID":"4","hallID":"3","cID":"1","date":"2018-08-09","beginTime":"15:40","endTime":"17:22","price":"29.5"},
+    { "schID":"19","mID":"4","hallID":"9","cID":"1","date":"2018-08-09","beginTime":"20:40","endTime":"22:22","price":"31.5"},
+    { "schID":"20","mID":"4","hallID":"9","cID":"1","date":"2018-08-09","beginTime":"22:30","endTime":"00:12","price":"29.5"},
+
+    { "schID":"21","mID":"4","hallID":"3","cID":"1","date":"2018-08-10","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+    { "schID":"22","mID":"4","hallID":"3","cID":"1","date":"2018-08-10","beginTime":"13:45","endTime":"15:27","price":"29.5"},
+    { "schID":"23","mID":"4","hallID":"3","cID":"1","date":"2018-08-10","beginTime":"15:40","endTime":"17:22","price":"29.5"},
+    { "schID":"24","mID":"4","hallID":"9","cID":"1","date":"2018-08-10","beginTime":"20:40","endTime":"22:22","price":"31.5"},
+    { "schID":"25","mID":"4","hallID":"9","cID":"1","date":"2018-08-10","beginTime":"22:30","endTime":"00:12","price":"29.5"},
+
+    { "schID":"26","mID":"4","hallID":"3","cID":"1","date":"2018-08-11","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+    { "schID":"27","mID":"4","hallID":"3","cID":"1","date":"2018-08-11","beginTime":"13:45","endTime":"15:27","price":"29.5"},
+    { "schID":"28","mID":"4","hallID":"3","cID":"1","date":"2018-08-11","beginTime":"15:40","endTime":"17:22","price":"29.5"},
+    { "schID":"29","mID":"4","hallID":"9","cID":"1","date":"2018-08-11","beginTime":"20:40","endTime":"22:22","price":"31.5"},
+    { "schID":"30","mID":"4","hallID":"9","cID":"1","date":"2018-08-11","beginTime":"22:30","endTime":"00:12","price":"29.5"}, 
+
+    { "schID":"31","mID":"4","hallID":"3","cID":"1","date":"2018-08-12","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+    { "schID":"32","mID":"4","hallID":"3","cID":"1","date":"2018-08-12","beginTime":"13:45","endTime":"15:27","price":"29.5"},
+    { "schID":"33","mID":"4","hallID":"3","cID":"1","date":"2018-08-12","beginTime":"15:40","endTime":"17:22","price":"29.5"},
+    { "schID":"34","mID":"4","hallID":"9","cID":"1","date":"2018-08-12","beginTime":"20:40","endTime":"22:22","price":"31.5"},
+    { "schID":"35","mID":"4","hallID":"9","cID":"1","date":"2018-08-12","beginTime":"22:30","endTime":"00:12","price":"29.5"},
+
+    { "schID":"36","mID":"5","hallID":"6","cID":"1","date":"2018-08-09","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+    { "schID":"37","mID":"5","hallID":"9","cID":"1","date":"2018-08-09","beginTime":"12:00","endTime":"13:57","price":"29.5"},
+    { "schID":"38","mID":"5","hallID":"6","cID":"1","date":"2018-08-09","beginTime":"14:30","endTime":"16:27","price":"29.5"},
+    { "schID":"39","mID":"5","hallID":"6","cID":"1","date":"2018-08-09","beginTime":"18:10","endTime":"19:00","price":"31.5"},
+    { "schID":"40","mID":"5","hallID":"6","cID":"1","date":"2018-08-09","beginTime":"21:15","endTime":"23:15","price":"29.5"},
+
+    { "schID":"41","mID":"5","hallID":"6","cID":"1","date":"2018-08-10","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+    { "schID":"42","mID":"5","hallID":"9","cID":"1","date":"2018-08-10","beginTime":"12:00","endTime":"13:57","price":"29.5"},
+    { "schID":"43","mID":"5","hallID":"6","cID":"1","date":"2018-08-10","beginTime":"14:30","endTime":"16:27","price":"29.5"},
+    { "schID":"44","mID":"5","hallID":"6","cID":"1","date":"2018-08-10","beginTime":"18:10","endTime":"19:00","price":"31.5"},
+    { "schID":"45","mID":"5","hallID":"6","cID":"1","date":"2018-08-10","beginTime":"21:15","endTime":"23:15","price":"29.5"},
+
+    { "schID":"46","mID":"5","hallID":"6","cID":"1","date":"2018-08-11","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+    { "schID":"47","mID":"5","hallID":"9","cID":"1","date":"2018-08-11","beginTime":"12:00","endTime":"13:57","price":"29.5"},
+    { "schID":"48","mID":"5","hallID":"6","cID":"1","date":"2018-08-11","beginTime":"14:30","endTime":"16:27","price":"29.5"},
+    { "schID":"49","mID":"5","hallID":"6","cID":"1","date":"2018-08-11","beginTime":"18:10","endTime":"19:00","price":"31.5"},
+    { "schID":"50","mID":"5","hallID":"6","cID":"1","date":"2018-08-11","beginTime":"21:15","endTime":"23:15","price":"29.5"},
+
+    { "schID":"51","mID":"6","hallID":"4","cID":"1","date":"2018-08-09","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+    { "schID":"52","mID":"6","hallID":"2","cID":"1","date":"2018-08-09","beginTime":"11:00","endTime":"16:52","price":"39.5"},
+    { "schID":"53","mID":"6","hallID":"4","cID":"1","date":"2018-08-09","beginTime":"11:45","endTime":"19:27","price":"39.5"},
+    { "schID":"54","mID":"6","hallID":"2","cID":"1","date":"2018-08-09","beginTime":"12:30","endTime":"23:12","price":"41.5"},
+    { "schID":"55","mID":"6","hallID":"8","cID":"1","date":"2018-08-09","beginTime":"13:20","endTime":"00:27","price":"39.5"},
+    { "schID":"56","mID":"6","hallID":"4","cID":"1","date":"2018-08-09","beginTime":"14:00","endTime":"14:22","price":"39.5"},
+    { "schID":"57","mID":"6","hallID":"2","cID":"1","date":"2018-08-09","beginTime":"14:50","endTime":"16:52","price":"39.5"},
+    { "schID":"58","mID":"6","hallID":"4","cID":"1","date":"2018-08-09","beginTime":"15:35","endTime":"19:27","price":"39.5"},
+    { "schID":"59","mID":"6","hallID":"2","cID":"1","date":"2018-08-09","beginTime":"16:15","endTime":"23:12","price":"41.5"},
+    { "schID":"60","mID":"6","hallID":"8","cID":"1","date":"2018-08-09","beginTime":"17:50","endTime":"19:48","price":"39.5"},
+
+    { "schID":"61","mID":"6","hallID":"4","cID":"1","date":"2018-08-10","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+    { "schID":"62","mID":"6","hallID":"2","cID":"1","date":"2018-08-10","beginTime":"11:00","endTime":"16:52","price":"39.5"},
+    { "schID":"63","mID":"6","hallID":"4","cID":"1","date":"2018-08-10","beginTime":"11:45","endTime":"19:27","price":"39.5"},
+    { "schID":"64","mID":"6","hallID":"2","cID":"1","date":"2018-08-10","beginTime":"12:30","endTime":"23:12","price":"41.5"},
+    { "schID":"65","mID":"6","hallID":"8","cID":"1","date":"2018-08-10","beginTime":"13:20","endTime":"00:27","price":"39.5"},
+    { "schID":"66","mID":"6","hallID":"4","cID":"1","date":"2018-08-10","beginTime":"14:00","endTime":"14:22","price":"39.5"},
+    { "schID":"67","mID":"6","hallID":"2","cID":"1","date":"2018-08-10","beginTime":"14:50","endTime":"16:52","price":"39.5"},
+    { "schID":"68","mID":"6","hallID":"4","cID":"1","date":"2018-08-10","beginTime":"15:35","endTime":"19:27","price":"39.5"},
+    { "schID":"69","mID":"6","hallID":"2","cID":"1","date":"2018-08-10","beginTime":"16:15","endTime":"23:12","price":"41.5"},
+    { "schID":"70","mID":"6","hallID":"8","cID":"1","date":"2018-08-10","beginTime":"17:50","endTime":"19:48","price":"39.5"},  
+
+    { "schID":"71","mID":"8","hallID":"1","cID":"1","date":"2018-08-09","beginTime":"11:15","endTime":"13:10","price":"39.5"},
+    { "schID":"72","mID":"8","hallID":"7","cID":"1","date":"2018-08-09","beginTime":"13:10","endTime":"14:55","price":"39.5"},
+    { "schID":"73","mID":"8","hallID":"9","cID":"1","date":"2018-08-09","beginTime":"15:15","endTime":"17:00","price":"39.5"},
+    { "schID":"74","mID":"8","hallID":"7","cID":"1","date":"2018-08-09","beginTime":"16:40","endTime":"18:25","price":"41.5"},
+    { "schID":"75","mID":"8","hallID":"1","cID":"1","date":"2018-08-09","beginTime":"18:40","endTime":"20:25","price":"39.5"},
+
+    { "schID":"76","mID":"2","hallID":"5","cID":"2","date":"2018-08-09","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"77","mID":"2","hallID":"5","cID":"2","date":"2018-08-10","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"78","mID":"2","hallID":"5","cID":"2","date":"2018-08-11","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"79","mID":"4","hallID":"3","cID":"2","date":"2018-08-09","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"80","mID":"4","hallID":"3","cID":"2","date":"2018-08-10","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"81","mID":"4","hallID":"3","cID":"2","date":"2018-08-11","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"82","mID":"4","hallID":"3","cID":"2","date":"2018-08-12","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"83","mID":"5","hallID":"6","cID":"2","date":"2018-08-09","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"84","mID":"5","hallID":"6","cID":"2","date":"2018-08-10","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"85","mID":"5","hallID":"6","cID":"2","date":"2018-08-11","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"86","mID":"6","hallID":"4","cID":"2","date":"2018-08-09","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"87","mID":"6","hallID":"4","cID":"2","date":"2018-08-10","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"88","mID":"8","hallID":"1","cID":"2","date":"2018-08-09","beginTime":"11:15","endTime":"13:10","price":"39.5"},
+
+    { "schID":"89","mID":"2","hallID":"5","cID":"3","date":"2018-08-09","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"90","mID":"2","hallID":"5","cID":"3","date":"2018-08-10","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"91","mID":"2","hallID":"5","cID":"3","date":"2018-08-11","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"92","mID":"4","hallID":"3","cID":"3","date":"2018-08-09","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"93","mID":"4","hallID":"3","cID":"3","date":"2018-08-10","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"94","mID":"4","hallID":"3","cID":"3","date":"2018-08-11","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"95","mID":"4","hallID":"3","cID":"3","date":"2018-08-12","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"96","mID":"5","hallID":"6","cID":"3","date":"2018-08-09","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"97","mID":"5","hallID":"6","cID":"3","date":"2018-08-10","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"98","mID":"5","hallID":"6","cID":"3","date":"2018-08-11","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"99","mID":"6","hallID":"4","cID":"3","date":"2018-08-09","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"100","mID":"6","hallID":"4","cID":"3","date":"2018-08-10","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"101","mID":"8","hallID":"1","cID":"3","date":"2018-08-09","beginTime":"11:15","endTime":"13:10","price":"39.5"},
+
+    { "schID":"102","mID":"2","hallID":"5","cID":"4","date":"2018-08-09","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"103","mID":"2","hallID":"5","cID":"4","date":"2018-08-10","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"104","mID":"2","hallID":"5","cID":"4","date":"2018-08-11","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"105","mID":"4","hallID":"3","cID":"4","date":"2018-08-09","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"106","mID":"4","hallID":"3","cID":"4","date":"2018-08-10","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"107","mID":"4","hallID":"3","cID":"4","date":"2018-08-11","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"108","mID":"4","hallID":"3","cID":"4","date":"2018-08-12","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"109","mID":"5","hallID":"6","cID":"4","date":"2018-08-09","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"110","mID":"5","hallID":"6","cID":"4","date":"2018-08-10","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"111","mID":"5","hallID":"6","cID":"4","date":"2018-08-11","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"112","mID":"6","hallID":"4","cID":"4","date":"2018-08-09","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"113","mID":"6","hallID":"4","cID":"4","date":"2018-08-10","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"114","mID":"8","hallID":"1","cID":"4","date":"2018-08-09","beginTime":"11:15","endTime":"13:10","price":"39.5"},
+
+    { "schID":"115","mID":"2","hallID":"5","cID":"5","date":"2018-08-09","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"116","mID":"2","hallID":"5","cID":"5","date":"2018-08-10","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"117","mID":"2","hallID":"5","cID":"5","date":"2018-08-11","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"118","mID":"4","hallID":"3","cID":"5","date":"2018-08-09","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"119","mID":"4","hallID":"3","cID":"5","date":"2018-08-10","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"120","mID":"4","hallID":"3","cID":"5","date":"2018-08-11","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"121","mID":"4","hallID":"3","cID":"5","date":"2018-08-12","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"122","mID":"5","hallID":"6","cID":"5","date":"2018-08-09","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"123","mID":"5","hallID":"6","cID":"5","date":"2018-08-10","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"124","mID":"5","hallID":"6","cID":"5","date":"2018-08-11","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"125","mID":"6","hallID":"4","cID":"5","date":"2018-08-09","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"126","mID":"6","hallID":"4","cID":"5","date":"2018-08-10","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"127","mID":"8","hallID":"1","cID":"5","date":"2018-08-09","beginTime":"11:15","endTime":"13:10","price":"39.5"},
+
+    { "schID":"128","mID":"2","hallID":"5","cID":"6","date":"2018-08-09","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"129","mID":"2","hallID":"5","cID":"6","date":"2018-08-10","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"130","mID":"2","hallID":"5","cID":"6","date":"2018-08-11","beginTime":"12:10","endTime":"14:22","price":"39.5"},
+
+    { "schID":"131","mID":"4","hallID":"3","cID":"6","date":"2018-08-09","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"132","mID":"4","hallID":"3","cID":"6","date":"2018-08-10","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"133","mID":"4","hallID":"3","cID":"6","date":"2018-08-11","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"134","mID":"4","hallID":"3","cID":"6","date":"2018-08-12","beginTime":"11:50","endTime":"13:32","price":"29.5"},
+
+    { "schID":"135","mID":"5","hallID":"6","cID":"6","date":"2018-08-09","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"136","mID":"5","hallID":"6","cID":"6","date":"2018-08-10","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"137","mID":"5","hallID":"6","cID":"6","date":"2018-08-11","beginTime":"10:35","endTime":"12:32","price":"29.5"},
+
+    { "schID":"138","mID":"6","hallID":"4","cID":"6","date":"2018-08-09","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"139","mID":"6","hallID":"4","cID":"6","date":"2018-08-10","beginTime":"10:20","endTime":"14:22","price":"39.5"},
+
+    { "schID":"140","mID":"8","hallID":"1","cID":"6","date":"2018-08-09","beginTime":"11:15","endTime":"13:10","price":"39.5"}
+
+]

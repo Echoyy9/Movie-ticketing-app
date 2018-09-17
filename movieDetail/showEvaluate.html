@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<style>
+h3{
+	text-align:center;
+	font-weight: bold;
+	margin-bottom:0.1em;}
+.contentcss{
+	padding:0px;
+	}
+#header{
+	background-color:#5bb0ba;
+	color:#FFF;
+	text-shadow:none;
+	font-size:1.2em;
+	border:0px;}
+#header a{
+	background-color:#5bb0ba;
+	box-shadow:none;
+	border:0px;
+	font-size:0.8em;
+	color:#FFF;
+	text-shadow:none;
+	}
+#assessDetail {
+	width: 100%;
+}
+#assessDetail div{
+	float: left;
+	width: 100%;
+}
+#assessDetail div img{
+   width: 20%;
+   margin-bottom:10%;
+   float: left;
+}
+
+#assessDetail div p{
+	width: 80%;
+	float: right;
+	background-color: #fff;
+    border-color: #ddd;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.2);
+        font-family: sans-serif;
+            cursor: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+}
+
+
+</style>
+
+<body>
+    <div data-role="page" id="pageone">
+      <div data-role="header" class="headercss" id="header" data-position="fixed">
+        <h3 id="mName">电影名</h3>
+        <a class="giveUpPay" data-rel="back" data-icon="back" >返回</a>
+       
+      </div>
+    
+      <div data-role="content" class="contentcss"> 
+         
+            <div class="movieAssess">
+                <h3 >用户评价</h3> 
+                <hr>
+                <div  id="assessDetail">
+                   
+                   
+                </div>
+            </div>
+         
+            
+      
+      </div>
+      
+
+
+</body>
+
+<script>
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+//从数据库中导入详细信息
+var mID = sessionStorage.getItem("mID");
+var mName;
+  $(function(){
+           db.transaction(function(tx){
+              tx.executeSql("select mName from movie where mID = ?",[mID],function(tx,results){  
+                        var i,len = results.rows.length;
+						mName = results.rows.item(0).mName;
+                        var num = 10;
+						$("#mName").text(mName);
+					     for( i = 0; i<num;i++){
+				           var str="<div class='dramaimg'><a  id='img"+parseInt(i+1)+"' data-rel='popup' data-position-to='window' data-transition='fade' class='imgPopup'><img src='../data/movie/"+results.rows.item(0).mName+"/Drama/"+parseInt(i+1)+".jpg'></a></div>"; 
+						     
+						   $("#imgGallery").append(str);
+						   $(".dramaimg").height($(".dramaimg").width());
+						 }
+                                        
+            },function(tx,error){
+          });	 
+
+            tx.executeSql("select * from movieEvaluate where mID = ?",[mID],function(tx,results){  
+        var len = results.rows.length,i;
+        console.log(results);
+
+        var str;
+        
+           for( i = 0; i<5;i++){
+               var result = results.rows.item(i);
+               str = "<div data-role='fieldcontain'><img src='../data/img/userimg.png'><h3>"+result.uName+"</h3><p style='resize: none;height:auto;'  readonly >"+result.assessment+"</p></div><hr>";
+
+               $("#assessDetail").append(str);
+            }
+        
+        },function(tx,error){
+           console.log(error);
+      
+		 });
+
+		 
+	 
+	  
+   });
+   });
+  
+
+</script>
+</html>
+

@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>即将上映</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- jquery -->
+
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<script src="js/main.js"></script>
+<link rel="stylesheet" href="css/my_theme.css" />
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+
+</head>
+<style type="text/css">
+/*网页content部分的设置*/
+*{
+  font-family: "Helvetica";
+}
+.contentcss{
+  padding:0px;}
+.footercss{
+  border-color: #ddd;
+  border: 0px;
+}
+
+  .img1{
+  width:100%; 
+  
+  }
+ /*轮播图片样式*/ 
+.photoShow{
+  position:relative;
+    /*设置高度和宽度为了单选框能够上去*/
+    width:100%;
+  height:35%;
+
+  margin:0px auto;
+  padding:0px;
+  }
+
+/*按钮*/
+.rdodiv{
+  position:absolute;
+  bottom:4%;
+  z-index:999;
+  left:32%;
+  width:100%;
+  }
+.rdodiv input{
+  width:3%;}
+/*即将上映*/
+
+/*即将上映*/
+#upComing li{
+  background-color: #f3f3f3;
+}
+
+#upComing li h3{
+  font-size: 1em;
+  font-weight: bold;
+  margin:0px;
+  color:#F90;
+}
+#upComing li p{
+  margin: 0px;
+
+}
+#upComing li h4{
+  margin: 0px;
+  margin-right: 1em;
+  float: left;
+
+}
+
+#upComing img{
+  max-height: 99%;
+}
+
+.title p{
+  color:#ffffff;
+  font-size:1em;
+  margin: 0px;
+
+
+}
+.title{
+  margin: 0px;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  background-color: #5bb0ba;
+  text-align: center;
+  
+  padding: 0.5em;
+  border-color: 1px #5bb0ba;
+  border-radius: 0.7em;
+}
+
+.footercss{
+  border-color: #ddd;
+  border: 0px;
+}
+
+</style>
+
+
+<body>
+<div data-role="page" id="pageone">
+    <div data-role="header" class="headercss">
+      <h1><b>即将上映</b></h1>
+    </div>
+    <div data-role="content" class="contentcss">
+        <div class="photoShow">
+         
+           <img src="data/movie/我不是药神/photos/horizontal.jpg" alt="图片不能正常显示" class="img1"/>
+    
+           <div class="rdodiv">
+               <input type="radio" name="rdo" value="0" data-role="none" checked>
+               <input type="radio" name="rdo" value="1" data-role="none">
+               <input type="radio" name="rdo" value="2" data-role="none">
+               <input type="radio" name="rdo" value="3" data-role="none">
+               <input type="radio" name="rdo" value="4" data-role="none">
+           </div>
+        </div>
+      <div id="upComing">
+        <div class="title">
+          <p>即将上映</p>
+        </div>
+        <ul data-role="listview" style="margin:4px;" id="comingsoon">
+           
+        </ul>
+      </div>
+    </div>
+    <div data-role="footer" data-position="fixed" class="footercss" id="footernav">
+       <div data-role="navbar" >
+              <ul>
+                 <li><a href="index1.html" data-icon="home" data-iconpos="top" >首页</a></li>
+                 <li><a href="upComing.html" data-icon="tag" data-iconpos="top" class="ui-btn-active">即将上映</a></li>
+                 <li><a href="cinema.html" data-icon="star" data-iconpos="top">影院</a></li>
+                 <li><a href="my.html" data-icon="heart" data-iconpos="top">我的</a></li>
+              </ul>
+        </div>
+  </div> 
+</div>
+<script type="text/javascript">
+  
+// JavaScript Document
+
+        var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+        $(function(){
+         //初始化content的高度，方便后来模块的高度设置
+           initContent();
+      /*
+         判断浏览器是否支持websql
+         如果支持的话，建数据库和表，并将json数据导入到相应的表中
+      */
+      if(window.openDatabase){ 
+
+            initUpCommingPage();
+         }else{
+            console.log("浏览器不支持DataBase"); 
+         }
+
+         $("a").attr("target","_top");
+          $("#comingsoon").on("click","li",function(){
+              console.log("ZZZ00");
+              var mID = $(this).attr("mID");
+              sessionStorage.setItem("mID",mID);
+              window.location.href = "movieDetail/Detail.html";
+         });
+
+
+     });
+
+function initUpCommingPage(){
+         db.transaction(function(tx){
+            tx.executeSql('select * from movie',[],function(tx,result){
+                 var len = result.rows.length,i;
+                 var results = result.rows;
+                
+                 for(i = 0; i < len; i++){
+
+              var score = results.item(i).score;
+
+                      if(result.rows.item(i).is_show == "True" ){
+                       
+
+                      }else{
+                        //即将上映
+                        var dateFeedBack  = stringToDate(results.item(i).show_time);
+                        var date = new Date();
+                        var year = date.getFullYear();
+                        var month = date.getMonth() + 1;
+                        var strDate = date.getDate();
+                        var days1 = parseInt(dateFeedBack.getTime()/(1000*60*60*24));
+                        var days2 = parseInt(date.getTime()/(1000*60*60*24));
+                        
+                        console.log(days1-days2);
+                        if((days1-days2)>=0){
+                            var coming="<li mID='"+results.item(i).mID+"'><a><img src='data/movie/"+results.item(i).mName+"/photos/index.jpg' >"
+                                      +"<h4>"+results.item(i).mName+"</h4>"
+                                      +"<h3>"+results.item(i).show_time+"</h3>"
+                                      +"<p>导演："+results.item(i).director+"</p>"
+                                      +"<p>主演："+results.item(i).actors+"</p>"
+                                      +"<p>简介："+results.item(i).details+"</p>"
+                                      +"</a></li>";
+
+                             $("#comingsoon").append(coming);
+                        }
+                        
+                
+                      }
+
+
+                
+                 }
+             $('#comingsoon').listview('refresh');
+
+            }); 
+
+         });
+
+}
+function initContent(){
+        height = $(window).height();
+        d1 = $(".headercss").height();
+        d2 = $(".footercss").height();
+        
+        $(".contentcss").css("height",height-d1-d2);
+        $(".img1").css("height",$(".photoShow").height());
+
+        $(".showImg").css("height",$(".showImg").width());
+        $(window).resize(function(){
+          height = $(window).height();
+          d1 = $(".headercss").height();
+          d2 = $(".footercss").height();
+          
+          $(".contentcss").css("height",height-d1-d2);
+          $(".img1").css("height",$(".photoShow").height());
+
+          $(".showImg").css("height",$(".showImg").width());
+       //执行代码块
+       //
+
+          });  
+}
+ //将数据库中的值转换为date
+ function stringToDate(dateStr){ 
+    
+    var dateArr = dateStr.split("-"); 
+    var year = parseInt(dateArr[0]); 
+    var month; 
+    //处理月份为04这样的情况                          
+    if(dateArr[1].indexOf("0") == 0){ 
+        month = parseInt(dateArr[1].substring(1)); 
+    }else{ 
+         month = parseInt(dateArr[1]); 
+    } 
+
+    var day = parseInt(dateArr[2]); 
+
+    var date = new Date(year,month -1,day); 
+    console.log(date);
+    return date; 
+} 
+
+
+//获取当前时间，格式YYYY-MM-DD
+    function getNowFormatDate() {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+
+
+
+   
+     
+
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[
+    { "uName":"Echo",
+      "uPwd":"123456",
+      "telephone":"13700010001"
+    },
+    { "uName":"Anna",
+      "uPwd":"111111",
+      "telephone":"13700020002"
+    }
+]

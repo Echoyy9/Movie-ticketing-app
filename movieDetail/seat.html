@@ -1,0 +1,405 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+
+<link rel="stylesheet" href="../css/my_theme.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.icons.min.css" />
+
+</head>
+
+<style type="text/css">
+   *{
+	   margin:0px;}
+#header{
+  font-size:1.2em;
+  border:0px;}
+#header a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+   .yingmu{
+	   width:50%;
+	   text-align:center;
+	   background-color:#ECECEC;
+	   margin:0px auto;
+	   
+	}
+	.usefulSeat{
+		margin:0.1em;
+		float:left;
+		width:1.2em;
+		height:1.2em;}
+    #seat_map{
+		width:100%;
+		height:100%;
+	}
+	
+	.nullSeat{
+		margin:0.1em;
+		float:left;
+		width:1.2em;
+		height:1.2em;
+	    
+	}
+	.seatRow{
+		margin:0px auto;
+		
+		height:0.2em;}
+	
+	#seatRow0{
+		margin-top:1.7em;}
+
+	.movieInfo{
+		width: 97%;
+		background-color: #5bb0ba ;
+		margin: 0px;
+		margin-bottom: 1em;
+		border-radius: 1em;
+		box-shadow: 0 1px 3px rgba(0,0,0,.15);
+		padding: 2%;
+		color:#FFF;
+	}
+	.movieInfo p{
+		margin-bottom: 1em;
+		
+	}
+	#mName{
+		font-size: 1.1em;
+	}
+	#mDate{
+		font-size: 1em;
+		color: #FFF;
+
+	}
+	.seatInfo{
+		width:25%;
+		float: left;
+		border: 1px solid #ddd;
+		margin-top:1em;
+		margin-left: 0.5em;
+		margin-bottom: 0.5em;
+		background-color:#f6f6f6;
+		border-radius:0.5em;
+	    box-shadow: 0 1px 3px rgba(0,0,0,.15);
+	}
+
+	.seatloc{
+		width: 85%;
+		margin: 0px;
+		float: left;
+		margin-top: 0.2em;
+		font-size: 0.9em;
+	}
+	.seatprice{
+		width: 85%;
+		margin: 0px;
+		float: left;
+		color: 	red;
+		margin-top: 0.2em;
+		margin-bottom: 0.2em;
+	}
+	.deleteseat{
+		width: 10%;
+		float: left;
+		margin-top: -0.5em;
+	}
+	.seatsInfo{
+		width: 100%;
+		float: left;
+	}
+
+	#totalPrice{
+		width:95%;
+		margin-left: 2.5%;
+		margin-right: 2.5%;
+		font-size: 1.1em;
+		padding: 1em;
+		background-color:#FF6600;
+		text-shadow: none;
+		color: #ffffff;
+		font-weight:normal;
+
+	}
+	#footer{
+		background-color:#FFF;
+		border:0px ;
+		color:#333;
+		text-shadow:none;
+		
+		}
+	#footer p{
+		font-weight:100;}
+
+
+</style>
+<body>
+<div data-role="page">
+  <div data-role="header" id="header">
+      <a data-rel="back" data-icon="back" target="_top"  >返回</a>
+      <h1 id="cinemaName"></h1>
+      <a href="../index1.html" data-role="button" data-icon="home" target="_top">主页</a>
+  </div>
+  <div data-role="content"> 
+     
+     <div class="movieInfo">
+        <p id="mName">我不是药神</p>
+        <p id="mDate">今天8月5日 19:20</p>
+     </div>  
+      <div class="yingmu">
+          <h3>荧幕中央</h3>
+      </div>
+      
+    <div id="seat_map">
+    
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed" id="footer">
+  	    <p>已选座位</p>
+  	    <div class="seatsInfo"> 	    	
+  	    </div>
+
+
+  	    <button id="totalPrice" disabled="true"><p>请先选座</p></button>
+  </div>
+  
+</div>
+
+<hr>
+
+<script>
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+var mID = sessionStorage.getItem("mID");
+var cID = sessionStorage.getItem("cID");
+var schID = sessionStorage.getItem("schID");
+var uName = sessionStorage.getItem("uName");
+var maps_str=[];
+
+$(function(){
+
+
+
+	$("#seat_map").on("click","input",function(){
+        var id = $(this).attr("id");
+        var sID = id.slice(4);
+		var row = id.slice(4,5);
+		var column = id.slice(6);
+		var price = $("#seat_map").attr("price");
+		var tprice = 0;
+          
+        if($(this).prop("checked") == false)
+        {
+            $(this).removeProp("checked");
+            $("#seatInfo"+row+"_"+column).remove();
+			if($(".seatInfo").length ==0){
+	            $("#totalPrice p").text("请先选座");
+	            $("#totalPrice").prop("disabled","true");
+			}else{
+			    var price = $("#seat_map").attr("price");
+				var tprice = 0;
+		        
+				tprice = parseFloat(price)*$(".seatInfo").length;
+
+		        $("#totalPrice p").text("￥"+tprice+"确认选座");}
+
+        }else{
+        		var str = "<div class='seatInfo' id ='seatInfo"+row+"_"+column+"'>"
+        	  	    	 +"<p class='seatloc' row='"+row+"' column='"+column+"'>"+row+"排"+column+"排</p>"
+        	  	         +"<p class='seatprice'>￥"+price+"</p>"
+        	  	    	 +"<p class='deleteseat'>X</p>";
+                $(".seatsInfo").append(str);
+        		
+                tprice = parseFloat(price)*$(".seatInfo").length;
+        
+                $("#totalPrice p").text("￥"+tprice+"确认选座");
+        
+                $("#totalPrice").removeProp("disabled");}
+
+	});
+
+	$(".seatsInfo").on("click",".deleteseat",function(){
+	 
+		var row = $(this).prev().prev().attr("row");
+		var column = $(this).prev().prev().attr("column");
+		var sID = row+"_"+column;
+		$("#seat"+sID).removeProp("checked");
+		$(this).parent().remove();
+
+		if($(".seatInfo").length ==0){
+            $("#totalPrice p").text("请先选座");
+            $("#totalPrice").prop("disabled","true");
+		}else{
+		    var price = $("#seat_map").attr("price");
+			var tprice = 0;
+	        
+			tprice = parseFloat(price)*$(".seatInfo").length;
+
+	        $("#totalPrice p").text("￥"+tprice+"确认选座");}
+
+	});
+
+	$("#totalPrice").click(function(){
+		var chooseSeats=[]
+		var i=0;
+		$(".seatsInfo").children().each(function(){
+            var row = $(this).children(".seatloc").attr("row");
+            var column = $(this).children(".seatloc").attr("column");
+            chooseSeats[i++] =row+"_"+column;
+		});
+		sessionStorage.setItem("chooseSeats",chooseSeats);
+		window.location.href="ticketInfo.html";
+	});
+
+
+});
+
+init();
+   function init(data){
+        
+        var maxRow;
+        console.log(schID);
+        db.transaction(function(tx){
+
+		    tx.executeSql("select max(row) as maxRow from seat,schedule where schedule.schID='"+schID+"' and schedule.schID = seat.schID ",[],function(tx,results){
+		             maxRow = results.rows.item(0).maxRow;
+		             for (var i =0;i<parseInt(maxRow)+1;i++)
+                    	maps_str[i] = [];
+
+                    loadSeat();
+		             console.log(maxRow);
+
+		      },function(tx,error){
+		        console.log(error);
+		    }); 
+
+		    tx.executeSql("select cName from cinema,schedule where schedule.schID='"+schID+"' and schedule.cID = cinema.cID ",[],function(tx,results){
+		             var cName = results.rows.item(0).cName;
+		             $("#cinemaName").text(cName);
+		      },function(tx,error){
+		        console.log(error);
+		    });
+
+	        tx.executeSql("select * from movie,schedule where schedule.schID='"+schID+"' and schedule.mID = movie.mID ",[],function(tx,results){	
+		             result = results.rows.item(0);
+		             $("#mName").text(result.mName);
+
+		             var cDate = result.date;
+                     var beginTime = result.beginTime;
+		             var dateFeedBack  = stringToDate(cDate);
+                   
+                    var date = new Date();
+		            var year = date.getFullYear();
+		            var month = date.getMonth() + 1;
+		            var strDate = date.getDate();
+	                var days1 = parseInt(dateFeedBack.getTime()/(1000*60*60*24));
+	                var days2 = parseInt(date.getTime()/(1000*60*60*24));
+	                var day = days1-days2;
+
+	                var dateTxt;
+
+
+	               switch(day){
+                    case -1:
+                        dateTxt ="今天"+cDate.slice(5)+"  "+beginTime;
+                    break;
+                    case 0:
+                        dateTxt ="明天"+cDate.slice(5)+"  "+beginTime;
+                    break;
+                    case 1:
+                        dateTxt ="后天"+cDate.slice(5)+"  "+beginTime;
+                    break;
+                    default: dateTxt =cDate.slice(5)+"  "+beginTime;
+                  }
+
+		             $("#mDate").text(dateTxt);
+		      },function(tx,error){
+		        console.log(error);
+		    });
+
+		  },function(tx,error){
+
+		});
+
+   }
+   function loadSeat(){
+            db.transaction(function(tx){
+   			            tx.executeSql("select * from seat,schedule where schedule.schID='"+schID+"' and schedule.schID = seat.schID ",[],function(tx,results){
+		            var  len = results.rows.length,i;
+                  
+		            var nowrow;
+		            
+		            for(i = 0 ; i < len ; i++ ){
+		            	var row = results.rows.item(i).row;
+		            	var column = results.rows.item(i).column;
+                        console.log(results.rows.item(i));
+
+                        if(results.rows.item(i).is_active == "true"){
+                            maps_str[row-1][column-1]= 't';
+                        }else if(results.rows.item(i).is_active == "false"){
+							maps_str[row-1][column-1]= 'f';
+                        }else{
+                        	maps_str[row-1][column-1]= 'n';
+                        }
+                        
+
+		            }
+		            console.log(maps_str);
+
+		            		for(var  i=0 ; i < maps_str.length; i++){
+			$("#seat_map ").append("<div class='seatRow' id='seatRow"+i+"'></div)");
+			$("#seat_map ").attr("price",results.rows.item(0).price);
+		    for(var j=0; j < maps_str[i].length; j++){
+			     
+				 if(maps_str[i][j] == 't'){
+				     $("#seatRow"+i).append("<input type='checkbox' name='seat' class='usefulSeat' id='seat"+parseInt(i+1)+"_"+parseInt(j+1)+"' value='"+parseInt(i+1)+"_"+parseInt(j+1)+"' checked disabled='true'> ");
+				 }else if(maps_str[i][j] == 'f'){
+				 	$("#seatRow"+i).append("<input type='checkbox' name='seat' class='usefulSeat' id='seat"+parseInt(i+1)+"_"+parseInt(j+1)+"' value='"+parseInt(i+1)+"_"+parseInt(j+1)+"'>"); 
+				 }else{
+				     $("#seatRow"+i).append("<div class='nullSeat' id='seat"+parseInt(i+1)+"_"+parseInt(j+1)+"></div>");
+				 }
+				 
+			}
+			$("#seat_map ").append("<br>");
+			
+			$("#seatRow"+i).css("width",j*1.4+"em");
+	    }
+		            },function(tx,error){
+
+		});
+           },function(tx,error){
+
+		});
+   }
+
+      //将数据库中的值转换为date
+ function stringToDate(dateStr){ 
+    
+    var dateArr = dateStr.split("-"); 
+    var year = parseInt(dateArr[0]); 
+    var month; 
+    //处理月份为04这样的情况                          
+    if(dateArr[1].indexOf("0") == 0){ 
+        month = parseInt(dateArr[1].substring(1)); 
+    }else{ 
+         month = parseInt(dateArr[1]); 
+    } 
+
+    var day = parseInt(dateArr[2]); 
+
+    var date = new Date(year,month -1,day); 
+    
+    return date; 
+}
+
+</script>
+</body>
+</html>

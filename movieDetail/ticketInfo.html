@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<style>
+h3{
+	text-align:center;
+	margin-bottom:0.1em;}
+.contentcss{
+	padding:0px;
+	}
+#header{
+	background-color:#5bb0ba;
+	color:#FFF;
+	text-shadow:none;
+	font-size:1.2em;
+	border:0px;}
+#header a{
+	background-color:#5bb0ba;
+	box-shadow:none;
+	border:0px;
+	font-size:0.8em;
+	color:#FFF;
+	text-shadow:none;
+	}
+	
+p{
+	margin:0px;
+	padding:0px;
+	font-size:1em;}
+
+.mTitile{
+	font-size:1.3em;
+	font-weight:bold;
+	margin-top:0px;
+	}
+
+.movieInfo{
+	width:100%;
+	padding:1em;
+	background-color:#5bb0ba;
+	color:#FFF;
+	text-shadow:none;
+	
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);}
+
+.movieInfo p{
+	margin-bottom:0.4em;
+	}
+.payAttention{
+	border-top:1px solid #CCC;
+	margin-top:0.5em;
+	border-radius:1em;
+	
+	}
+
+#pay{
+	width:85%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	font-size: 1.1em;
+	padding: 1em;
+	background-color:#FF6600;
+	text-shadow: none;
+	color: #ffffff;
+	font-weight:normal;
+	}		
+	
+
+	
+	
+.point{
+	width:70%;
+	height:2em;
+	float:left;
+	padding:1em;
+	font-size:0.3em;
+	}
+.point p{
+	float:left;
+	color:#999;
+	}
+	
+#price{
+	width:100%;
+	padding:0.5em;
+	padding-top:0px;
+	float:left;
+	font-size:1.5em;
+	color:#666;
+	}
+#price p{
+	float:left;
+	}
+#priceNum{
+	color:#C00;;}
+	
+textarea{
+	resize:none;
+	user-select:none;}
+#footer {
+	background-color:#FFF;
+	}
+
+</style>
+
+<body>
+    <div data-role="page" id="pageone">
+      <div data-role="header" class="headercss" id="header" data-position="fixed">
+        <h3></h3>
+        <a class="giveUpPay" data-rel="back" data-icon="back" >返回</a>
+       
+      </div>
+    
+      <div data-role="content" class="contentcss">
+          <div class="movieInfo">
+               <p class="mTitile">我不是药神</p>
+               <p class="sTime">时间:2018-08-02 15:15</p>
+               <p class="cName">影院名称:幸福蓝海IMAX影城</p>
+               <p class="hInfo">影厅：2号厅  国语2D</p>
+               <p class="sInfo">8排11座 8排10座</p>  
+          </div>
+          
+          <div class="payAttention">
+          <h3>观影须知</h3>
+           <textarea>
+1 购票时，请核对场次、片名。票面一经售出，概不退换，严禁倒卖
+2 低于一米以下儿童谢绝入场。高于一米儿童，必须购票入场。观影期间请持票出入影厅。
+3 观众请勿携带非本影城卖品部出售的饮食品进入影厅
+4 影城内禁止吸烟。请勿食用口香糖。
+5 影片放映期间，请勿喧哗。请将手机及传呼机关闭或调至震动。
+6 影城内禁止摄影、录像及录音。
+7 观众散场是应从影城指定出口离场。
+8 观众的贵重物品请妥善保管，散场时请带好自己的物品，影城声明对任何原因引起的物品丢失不承担责任。
+9 请注意开场前将放映约五分钟预告片。
+            </textarea>
+             
+          </div>
+      </div>
+      	    
+      
+      <div data-role="footer" class="footercss"  id="footer" data-position="fixed">
+         <span class="point">
+           <p>不可退|</p>
+           <p>不可更改</p>
+         </span >
+         
+         <span id="price">
+            <p>价格:</p>
+            <p id="priceNum">￥</p>
+         
+         </span>
+
+         
+         <a  data-role="button" id="pay"><p>立即付款</p></a> 
+      </div>
+</body>
+
+<script>
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+var mID = sessionStorage.getItem("mID");
+var cID = sessionStorage.getItem("cID");
+var schID = sessionStorage.getItem("schID");
+var uName = sessionStorage.getItem("uName");
+var chooseSeats =sessionStorage.getItem("chooseSeats");
+
+  $(function(){
+	  //从数据库中导入基本信息
+	 var totalprice;
+	 var cSeats = chooseSeats.split(","); 
+	 console.log(cSeats);
+  
+     var appendSeats ="";
+	 for(var i = 0;i<cSeats.length;i++){
+	 	 var seatdetail = cSeats[i].split("_");
+         appendSeats+=seatdetail[0]+"排"+seatdetail[1]+"座 ";
+
+	 }
+	 $(".sInfo").text(appendSeats);
+
+   
+	db.transaction(function(tx){
+	   var selectStr ="select mName,cName,date,beginTime,hallName,desc,price " 
+	                 +"from schedule,cinema,hall,movie "
+	                 +"where schedule.schID = '"+schID+"' AND schedule.cID = cinema.cID AND "
+	                 +"schedule.cID = hall.cID AND schedule.hallID = hall.hallID AND movie.mID = schedule.mID "
+	    tx.executeSql(selectStr,[],function(tx,results){	   
+             console.log(results);
+             var info = results.rows.item(0);
+             $(".mTitile").text(info.mName);
+             $(".sTime").text("时间:"+info.date+" "+info.beginTime);
+             $(".cName").text("影院:"+info.cName);
+             $(".hInfo").text("影厅:"+info.hallName+" "+info.desc);
+             $("#priceNum").text("￥"+parseFloat(info.price)*cSeats.length);
+             totalprice=parseFloat(info.price)*cSeats.length;
+	    },function(tx,error){
+	    
+		});
+    },function(tx,error){
+
+	});
+
+	$("#pay").click(function(){
+		db.transaction(function(tx){
+			var maxOrderID = 0;
+			//查询当前订单的最大值，加1后为新订单的id号
+		    tx.executeSql("select orderID from orderList ",[],function(tx,results){
+		         var len = results.rows.length,i;
+		         for( i =0 ; i < len ; i++){
+                     var result = results.rows.item(i);
+                     if(parseInt(result.orderID) > parseInt(maxOrderID))
+                     	 maxOrderID = parseInt(result.orderID);
+		         }
+		         
+		         //生成订单的时间
+		         maxOrderID = maxOrderID+1;
+			    var date = new Date();
+	            var year = date.getFullYear();
+	            var month = date.getMonth() + 1;
+	            var strDate = date.getDate();
+	            var hours = date.getHours() + 1;
+	            var Minutes = date.getSeconds();
+                
+                if(strDate<=9){
+                    strDate = "0"+hours; 
+	            }
+                if(month<=9){
+                    month = "0"+hours; 
+	            }
+	            if(hours<=9){
+                    hours = "0"+hours; 
+	            }
+
+	            if(Minutes<=9){
+	            	hours = "0"+hours;
+	            }
+
+
+	            var timeStr = year + "-" + month + "-" + strDate +" " +hours+":"+Minutes;
+                //点击立即付款后，将数据插入到数据库中
+	            tx.executeSql("insert into orderList values(?,?,?,?,?,?)",[maxOrderID,schID,uName,totalprice,"true",timeStr],function(tx,results){
+
+			       
+			    },function(tx,error){
+			    	 console.log("错误！");
+			    	 console.log(error);
+			    
+				});
+
+				tx.executeSql("insert into watchedMovies values(?,?)",[uName,mID],function(tx,results){
+
+			       
+			    },function(tx,error){
+			    	 console.log("错误！");
+			    	 console.log(error);
+			         
+				});
+                
+				 for(var i = 0;i<cSeats.length;i++){
+			            tx.executeSql("insert into orderSeat values(?,?)",[maxOrderID,cSeats[i]],function(tx,results){
+
+					       console.log("添加成功");
+					    },function(tx,error){
+					    	 console.log("错误！");
+					    	 console.log(error);
+					    
+						});
+
+				 }
+
+				 
+	           //查询当前影厅和当前座位
+ 			    tx.executeSql("select hallID from schedule where schedule.schID = '"+schID+"'",[],function(tx,rs){
+                
+                var hallID = rs.rows.item(0).hallID;
+
+               console.log(cSeats[i]);
+
+               for(var i = 0;i<cSeats.length;i++){
+	           tx.executeSql("update seat SET is_active = 'true'  where seat.sID = '"+cSeats[i]+"' AND seat.schID = '"+schID+"'",[],function(tx,results){
+              //SET is_active = 'true' 
+                 console.log(results);
+	            	console.log("更新成功");
+
+			    },function(tx,error){
+			    	 console.log("错误！");
+			    	 console.log(error);
+			    
+				});
+
+
+               }
+               sessionStorage.setItem("orderID",maxOrderID);
+               setTimeout(toDialog,1000);  
+
+			    },function(tx,error){
+			    	 console.log("错误！");
+			    	 console.log(error);
+			    
+				});
+
+		    },function(tx,error){
+		    
+			});
+	    
+
+
+	    },function(tx,error){
+
+		});
+
+
+	})
+
+	  //页面初始化
+      height = $(window).height();
+	  d1 = $(".headercss").height();
+	  d2 = $(".footercss").height();
+	  
+	  $(".contentcss").css("height",height-d1-d2);
+	  $(".img1").css("height",$(".photoShow").height());
+	  $(window).resize(function(){
+	  height = $(window).height();
+	  d1 = $(".headercss").height();
+	  d2 = $(".footercss").height();
+	  
+	  $(".contentcss").css("height",height-d1-d2);
+	  $(".img1").css("height",$(".photoShow").height());
+   //执行代码块
+  
+
+      });
+  });
+
+function toDialog(){
+	window.location.href="dialog.html";
+}
+
+
+</script>
+</html>

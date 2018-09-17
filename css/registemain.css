@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+
+#uName{
+	width:85%;
+}
+
+#RuPwd{
+	width:85%;
+}
+
+.unamebutton{
+	width:2.1em;
+	height:2em;
+	border-radius:50%;
+	margin:0.1em;
+	}
+
+.RuPwdbutton{
+	width:2.1em;
+	height:2em;
+	border-radius:50%;
+	margin:0.1em;
+	}
+
+
+/*去掉箭头*/
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{  /* chrome */
+
+    -webkit-appearance: none!important;  
+    margin: 0;  
+}
+input[type="number"]{
+-moz-appearance:textfield; /*Firefox*/
+}
+
+
+.ui-icon-check{
+	background-color: green;
+}
+.ui-icon-delete{
+	background-color: red;
+}
+

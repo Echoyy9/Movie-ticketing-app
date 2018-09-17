@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="http://static.runoob.com/assets/qrcode/qrcode.min.js"></script>
+
+
+</head>
+<style type="text/css">
+<style>
+h3{
+	text-align:center;
+	margin-bottom:0.1em;}
+.contentcss{
+	padding:0px;
+	}
+#header{
+	background-color:#5bb0ba;
+	color:#FFF;
+	text-shadow:none;
+	font-size:1.2em;
+	border:0px;}
+#header a{
+	background-color:#5bb0ba;
+	box-shadow:none;
+	border:0px;
+	font-size:0.8em;
+	color:#FFF;
+	text-shadow:none;
+	}
+	
+p{
+	margin:0px;
+	padding:0px;
+	font-size:1em;}
+
+.mTitile{
+	font-size:1.3em;
+	font-weight:bold;
+	margin-top:0px;
+	}
+
+.movieInfo{
+	width:100%;
+	padding:1em;
+	background-color:#5bb0ba;
+	color:#FFF;
+	text-shadow:none;
+	
+	box-shadow: 0 1px 3px rgba(0,0,0,.15);}
+
+.movieInfo p{
+	margin-bottom:0.4em;
+	}
+.qupiao{
+	width:90%;
+
+	margin:0px auto;
+	background-color:#FFF;
+	color:#666;
+	text-align:center;
+	padding-bottom:2em;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,.45);}
+#qupiaoimg{
+	width:80%;
+	margin:0px auto;
+    }
+#qupiaoimg img{
+	width: 90%;
+	margin:0px auto;
+}
+#assessinfo{
+   resize: none;	
+}
+</style>
+<body>
+<div data-role="page"> 
+      <div data-role="header" class="headercss" id="header" data-position="fixed">
+      <a data-rel="back" data-icon="back" target="_top"  >返回</a>
+      <h3></h3>
+      <a href="../index1.html" data-role="button" data-icon="home" target='_top'>主页</a>
+      </div>
+    
+  <div data-role="content" class="contentcss">
+     <div class="movieInfo">
+     <p class="mTitile">名称</p>
+     <p class="sTime">时间:</p>
+     <p class="cName">影院名称:</p>
+     <p class="hInfo">  </p>
+     <p class="sInfo"></p>  
+    </div>
+    <div class="qupiao">
+       <h2>取票码</h2>
+       <h3>8806-234-05</h3>
+       <div id="qupiaoimg">
+         <!-- <img src="../data/img/qupiaoma.png">-->
+       </div>
+    </div>
+
+    <div  id="myAssess">
+
+    </div>
+    
+
+  </div>
+  
+</div>
+
+<div data-role="page" id="assessMovie"> 
+      <div data-role="header" class="headercss" id="header" data-position="fixed">
+      <a id="back" data-icon="back" target="_top"  >返回</a>
+      <h3>我的评价</h3>
+      <a id="submit">发布</a>
+      </div>
+    
+  <div data-role="content" class="contentcss" >
+  	   <h3>你对这部电影的评价:</h3>
+       <textarea id="assessinfo" data-role="none" class="ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow" placeholder="好看吗？快来写下你的感受吧~"></textarea>
+
+    </div>
+
+    <div data-role="popup" id="myPopup">
+      <p>评价不能少于5个字！</p>
+    </div>
+
+  
+</div>
+
+
+<script>
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+var uName = sessionStorage.getItem("uName");
+var orderID = sessionStorage.getItem("orderID");
+
+  $(function(){
+	  //从数据库中导入基本信息
+	 
+   selectWebSql();
+   initAssessDiv();
+   $("#assessinfo").css("height","12em");
+   
+   $("#back").click(function(){
+         backToPrev();
+   });
+   $("#submit").click(function(){
+       addToMovieEvaluate($("#assessinfo").val());
+   }); 
+  });
+
+function initAssessDiv(){
+	db.transaction(function(tx){
+
+	    tx.executeSql("select mID from orderList,schedule where orderList.orderID=? AND orderList.schID=schedule.schID ",[parseInt(orderID)],function(tx,results){	   
+             
+            var mID = results.rows.item(0).mID;
+
+	         tx.executeSql("select assessment from MovieEvaluate where uName = ? AND mID = ?",[uName,mID],function(tx,results){	   
+	             
+	             var str;
+	             if(results.rows.length　> 0 ){
+
+                     str="<h3>你的评价:</h3><textarea class='ui-input-text ui-shadow-inset ui-body-inherit ui-corner-all ui-textinput-autogrow' style='height:5em;resize:none;' readonly>"+results.rows.item(0).assessment+"</textarea>";
+	             }else{
+                     str="<a href='#assessMovie' data-role='button' class='ui-link ui-btn ui-shadow ui-corner-all' style='background-color:#5bb0ba; color:#fff; text-shadow:none;' >评价</a>";
+	             }
+
+	             $("#myAssess").append(str);
+		    },function(tx,error){
+		        console.log(error);
+			});    
+           
+	    },function(tx,error){
+	        console.log(error);
+		});
+    },function(tx,error){
+
+	});	
+}
+
+function addToMovieEvaluate(txt){
+	txt = txt.replace(/^[\s\n\t]+/g, "");
+   if(txt.length　< 5){
+      $("#myPopup").popup('open')
+   }else{
+		db.transaction(function(tx){
+
+		    tx.executeSql("select mID from orderList,schedule where orderList.orderID=? AND orderList.schID=schedule.schID ",[parseInt(orderID)],function(tx,results){	   
+	             
+	            var mID = results.rows.item(0).mID;
+
+		         tx.executeSql("insert into MovieEvaluate values(?,?,?) ",[uName,mID,txt],function(tx,results){	   
+		             
+		             console.log("加入成功");
+		             window.history.go(-2);
+			    },function(tx,error){
+			        console.log(error);
+				});    
+	           
+		    },function(tx,error){
+		        console.log(error);
+			});
+	    },function(tx,error){
+
+		});
+   }
+}
+
+
+//返回上一层
+function backToPrev() {
+    var popupDialogId = 'popupDialog';
+    $('<div data-role="popup" id="' + popupDialogId + '" data-confirmed="no" data-transition="pop" data-overlay-theme="a" data-theme="a" data-dismissible="false" style="min-width:216px;max-width:500px;"> \
+                    \
+                    <div role="main" class="ui-content">\
+                        <h3 class="ui-title" style="color:#000; text-align:center;margin-bottom:15px">要退出当前编辑吗？</h3>\
+                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a optionConfirm" data-rel="back" style="width: 33%;border-radius: 5px;height: 30px;line-height: 30px;padding: 0;font-size: .9em;margin: 0 0 0 12%;font-weight: 100; color:#009999">退出</a>\
+                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a optionCancel" data-rel="back" data-transition="flow" style="color:#5bb0ba; width: 33%;border-radius: 5px;height: 30px;line-height: 30px;padding: 0;font-size: .9em;margin: 0 0 0 5%;font-weight: 100;color: #009999;text-shadow: none;">取消</a>\
+                    </div>\
+                </div>')
+        .appendTo($.mobile.pageContainer);
+    var popupDialogObj = $('#' + popupDialogId);
+    popupDialogObj.trigger('create');
+    popupDialogObj.popup({
+        afterclose: function (event, ui) {
+            popupDialogObj.find(".optionConfirm").first().off('click');
+            var isConfirmed = popupDialogObj.attr('data-confirmed') === 'yes' ? true : false;
+            $(event.target).remove();
+            if (isConfirmed) {
+            	window.history.go(-1);
+            }
+        }
+    });
+    popupDialogObj.popup('open');
+    popupDialogObj.find(".optionConfirm").first().on('click', function () {
+        popupDialogObj.attr('data-confirmed', 'yes');
+    });
+}
+
+//从数据库中导入基本信息
+function selectWebSql(){
+	db.transaction(function(tx){
+        
+		tx.executeSql("select price,schID from orderList where orderID = ?",[parseInt(orderID)],function(tx,results){	
+              console.log(results);
+              console.log(orderID);
+              schID = results.rows.item(0).schID;
+              price = results.rows.item(0).price;
+              $("#priceNum").text("￥"+price);
+
+			   var selectStr ="select mName,cName,date,beginTime,hallName,desc " 
+			                 +"from schedule,cinema,hall,movie "
+			                 +"where schedule.schID = '"+schID+"' AND schedule.cID = cinema.cID AND "
+			                 +"schedule.cID = hall.cID AND schedule.hallID = hall.hallID AND movie.mID = schedule.mID "
+
+			    tx.executeSql(selectStr,[],function(tx,results){	   
+		             console.log(results);
+		             var info = results.rows.item(0);
+		             $(".mTitile").text(info.mName);
+		             $(".sTime").text("时间:"+info.date+" "+info.beginTime);
+		             $(".cName").text("影院:"+info.cName);
+		             $(".hInfo").text("影厅:"+info.hallName+" "+info.desc);
+		             
+		              
+			     	var date = new Date();
+			        var year = date.getFullYear();
+			        var month = date.getMonth() + 1;
+			        var strDate = date.getDate();
+			        var hours = date.getHours() + 1;
+			        var Minutes = date.getSeconds();
+
+		            var str="orderID:"+orderID+"|schID:"+schID;
+		             
+		            var appendstr=orderID+schID+"-"+year+month+strDate
+
+
+		            $(".qupiao h3").text(appendstr);
+		   
+		            //生成取票吗
+		            var qrcode = new QRCode(document.getElementById("qupiaoimg"), {
+						width : 256,
+						height : 256
+					});
+					qrcode.makeCode(str);
+
+			    },function(tx,error){
+			        console.log(error);
+				});
+
+
+        },function(tx,error){
+	    
+		});
+ 
+
+
+	    tx.executeSql("select sID from orderSeat where orderID=?",[parseInt(orderID)],function(tx,results){	   
+             
+             var len = results.rows.length;
+             var appendSeats ="";
+             for(var i=0;i<len;i++){
+             	 var  result = results.rows.item(i).sID;
+                 var seatdetail = result.split("_");
+                 appendSeats+=seatdetail[0]+"排"+seatdetail[1]+"座 ";
+
+             }
+              $(".sInfo").text(appendSeats);
+           
+	    },function(tx,error){
+	        console.log(error);
+		});
+    },function(tx,error){
+
+	});
+}
+
+</script>
+</html>

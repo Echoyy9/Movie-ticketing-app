@@ -1,0 +1,421 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人中心</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- jquery -->
+
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<link rel="stylesheet" href="css/my_theme.css" />
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+
+<!-- <script src="js/myjs.js"></script> -->
+
+</head>
+<style type="text/css">
+	#userInfo .headercss a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+
+  #changSex .headercss a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+
+
+  #changeTel .headercss a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  } 
+
+  #changeEmail .headercss a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  } 
+
+    .userInfodiv{
+    width: 90%;
+    margin: 0px auto; 
+    color: #ffffff;
+    padding: 1em;
+    text-shadow: none;
+    box-shadow: 0 1px 3px /*{global-box-shadow-size}*/ rgba(0,0,0,.2) /*{global-box-shadow-color}*/;
+    border-radius: 1em;
+    background:#5bb0ba;
+
+  }
+
+   .userInfodiv h3{
+   	  margin-top: 0px;
+   }
+   #infoUl h2{
+      float: left;
+      width: 80%;
+   }
+   #infoUl p{
+      float: left;
+      width: 15%;
+      text-align: right;
+
+   }
+   
+  /*修改性别*/
+   #sexSubmit{
+    background-color: #5bb0ba ;
+    color:#fff;
+    font-size: 1.1em;
+    font-weight: 100;
+   }
+
+
+   #telSubmit{
+    background-color: #5bb0ba ;
+    color:#fff;
+    font-size: 1.1em;
+    font-weight: 100;
+   }
+   #emailSubmit{
+    background-color: #5bb0ba ;
+    color:#fff;
+    font-size: 1.1em;
+    font-weight: 100;
+   }
+   #footer{
+    background-color: #fff;
+    border: 0px;
+   }
+   #footer button{
+      font-size: 1em;
+   }
+</style>
+<body>
+   <!-- 同样也是用page的方式显示各个子页面 -->
+   <div data-role="page" id="userInfo">
+    <div data-role="header" class="headercss">
+    	<a data-role="button" href="my.html" data-icon="back" target="_top">返回</a>
+    	<h1><b>个人信息</b></h1>
+
+    </div> 
+    <div data-role="content">
+    <div class="userInfodiv">
+    	<h3 id="uName"> 三大Echo</h3>
+       <ul data-role="listview" id="infoUl">
+          
+           <li id="usex">
+              <a href="#changSex">
+              	<h2>性别</h2>
+                <p>女</p>
+              </a>
+
+           </li >
+
+           <li id="utel">
+              <a href="#changeTel">
+                <h2>电话</h2>
+                <p></p>
+              </a>
+              
+           </li> 
+
+           <li id="uemail">
+              <a href="#changeEmail">
+                <h2>邮箱</h2>
+                <p></p>
+              </a>
+              
+           </li> 
+
+       </ul>
+       
+    </div>
+
+    
+    </div>
+     <div data-role="footer" data-position="fixed" id="footer" >
+      <button style="width: 100%;" onclick="exit()">退出登录</button>
+    </div>
+    
+ </div>
+
+  <div data-role="page"  id="changSex">
+    <div data-role="header"  class="headercss">
+      <a data-role="button" data-rel="back" data-icon="back">返回</a>
+      <h1><b>修改性别</b></h1>
+    </div>    
+
+    <div data-role="content">
+      <form method="post" action="">
+        <fieldset data-role="controlgroup">
+        <legend>请选择您的性别：</legend>
+          <label for="male">男性</label>
+          <input type="radio" name="gender" id="male" value="male">
+          <label for="female">女性</label>
+          <input type="radio" name="gender" id="female" value="female"> 
+        </fieldset>
+          <a data-role="button" id="sexSubmit" class="infoSubmit">确定</a>
+      </form>
+
+    <div data-role="popup" id="sexPopup">
+      <p>你还没有选择~</p>
+    </div>
+    </div>
+
+
+  </div>  
+
+
+  <div data-role="page"  id="changeTel">
+    <div data-role="header"  class="headercss">
+      <a data-role="button" data-rel="back" data-icon="back">返回</a>
+      <h1><b>修改手机号</b></h1>
+    </div>    
+
+    <div data-role="content">
+      <form method="post" action="">
+        <fieldset data-role="controlgroup">
+            <legend>你的手机号</legend>
+            <input type="tel" name="password" id="telephone" placeholder="请输入手机号">
+            
+        </fieldset>
+          <a data-role="button" id="telSubmit" class="infoSubmit">确定</a>
+      </form>
+      <div data-role="popup" id="telPopup">
+      <p>请填写正确的手机号~</p>
+    </div>
+    </div> 
+  </div>
+
+  <div data-role="page"  id="changeEmail">
+    <div data-role="header"  class="headercss">
+      <a data-role="button" data-rel="back" data-icon="back">返回</a>
+      <h1><b>修改邮箱</b></h1>
+    </div>    
+
+    <div data-role="content">
+      <form method="post" action="">
+        <fieldset data-role="controlgroup">
+            <legend>修改邮箱</legend>
+            <input type="email" name="email" id="email" placeholder="请输入你的邮箱...">
+            
+        </fieldset>
+          <a data-role="button" id="emailSubmit" class="infoSubmit">确定</a>
+      </form>
+      <div data-role="popup" id="emailPopup">
+      <p>请填写正确的邮箱号~</p>
+    </div>
+    </div> 
+  </div>  
+  
+
+</body>
+<script type="text/javascript">
+var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+var uName = sessionStorage.getItem("uName");
+
+	$(function(){
+        initUser();
+     
+        //当几个列表被点击时跳转到相应的页面进行相应的操作
+        $("#sexSubmit").click(function(){
+             var sex = $("input[name='gender']:checked").val();
+
+             if(sex == null){
+                $("#sexPopup").popup('open')
+
+             }else{
+                console.log(sex);
+                updateSex(sex);
+             }
+        });
+
+        $("#telSubmit").click(function(){
+             
+             var tel = $("#telephone").val();
+             //去掉前后空格
+             tel = tel.replace(/^\s+|\s+$/g,"");
+             if(tel == null){
+                $("#telPopup").popup('open');
+
+             }else{
+                
+                var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+                //判断手机号格式是否正确
+                 if(!myreg.test(tel))
+                 { console.log(tel);
+                    $("#telPopup").popup('open'); 
+                 }else{
+                     updateTel(tel);
+                 }
+             }
+        });
+
+        $("#emailSubmit").click(function(){
+             
+             var email = $("#email").val();
+             //去掉前后空格
+             email = email.replace(/^\s+|\s+$/g,"");
+             if(email == null){
+                $("#emailPopup").popup('open');
+
+             }else{
+                
+                var myreg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+                //判断手机号格式是否正确
+                 if(!myreg.test(email))
+                 { console.log(email);
+                    $("#emailPopup").popup('open'); 
+                 }else{
+                     updateEmail(email);
+                 }
+             }
+        });
+
+	});
+//email的更新
+    function updateEmail(email){
+      db.transaction(function(tx){
+
+      tx.executeSql("update user set email = ? where uName = ?",[email,uName],function(tx,results){    
+         
+          window.location.href="userInfo.html";
+      },function(tx,error){
+        console.log(error);
+      
+    });
+    },function(tx,error){
+
+  }); 
+
+  }
+
+//对性别的更新
+  function updateSex(sex){
+      db.transaction(function(tx){
+
+      tx.executeSql("update user set sex = ? where uName = ?",[sex,uName],function(tx,results){    
+         
+          window.location.href="userInfo.html";
+      },function(tx,error){
+        console.log(error);
+      
+    });
+    },function(tx,error){
+
+  }); 
+
+  }
+
+
+//初始化当前用户的信息，并显示在屏幕上
+	function initUser(){
+    //用户
+  db.transaction(function(tx){
+     var selectStr ="select * " 
+                   +"from user "
+                   +"where uName = ?";
+
+      tx.executeSql(selectStr,[uName],function(tx,results){    
+          console.log(results); 
+          
+
+          var uName = results.rows.item(0).uName;
+          var tel = results.rows.item(0).telephone;
+          var email = results.rows.item(0).email;
+          var sex = results.rows.item(0).sex;
+
+          $("#uName").text("昵称:"+uName);
+          $("#utel a p").text(tel);
+          $("#telephone").val(tel);
+
+          console.log(email);
+          email = email.replace( /^\s*/, '');
+          if(email.length == 0){
+            $("#uemail a p").text("未完善");
+          }else{
+            $("#uemail a p").text(email);
+            $("#email").val(email);
+          }
+
+          if(sex.length == 0){
+            $("#usex a p").text("未完善");
+          }else{
+            if(sex == "female"){
+               $("#usex a p").text("女");
+            }else{
+               $("#usex a p").text("男");
+            }
+
+            
+            $("#"+sex).prop("checked","true");
+          }
+      },function(tx,error){
+        console.log(error);
+      
+    });
+    },function(tx,error){
+
+  }); 
+
+}
+
+//退出当前用户的提示框
+function exit() {
+    var popupDialogId = 'popupDialog';
+    $('<div data-role="popup" id="' + popupDialogId + '" data-confirmed="no" data-transition="pop" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="min-width:216px;max-width:500px;"> \
+                    \
+                    <div role="main" class="ui-content">\
+                        <h3 class="ui-title" style="color:#333333; text-align:center;margin-bottom:15px;font-size:1em;">退出后您将不能再购买电影票，确定退出吗?</h3>\
+                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b optionConfirm" data-rel="back" style="width: 33%;border-radius: 5px;height: 30px;line-height: 30px;padding: 0;font-size: .9em;margin: 0 0 0 12%;font-weight: 100; color:#009999">确定</a>\
+                        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b optionCancel" data-rel="back" data-transition="flow" style="color:#5bb0ba; width: 33%;border-radius: 5px;height: 30px;line-height: 30px;padding: 0;font-size: .9em;margin: 0 0 0 5%;font-weight: 100;color: #009999;text-shadow: none;">取消</a>\
+                    </div>\
+                </div>')
+        .appendTo($.mobile.pageContainer);
+    var popupDialogObj = $('#' + popupDialogId);
+    popupDialogObj.trigger('create');
+    popupDialogObj.popup({
+        afterclose: function (event, ui) {
+            popupDialogObj.find(".optionConfirm").first().off('click');
+            var isConfirmed = popupDialogObj.attr('data-confirmed') === 'yes' ? true : false;
+            $(event.target).remove();
+            if (isConfirmed) {
+              //清除当前sessionStorage的信息，并且跳转到主页
+                sessionStorage.removeItem('uName');
+                
+                window.location.href="index1.html";
+            }
+        }
+    });
+    popupDialogObj.popup('open');
+    popupDialogObj.find(".optionConfirm").first().on('click', function () {
+        popupDialogObj.attr('data-confirmed', 'yes');
+    });
+}
+
+
+
+
+
+</script>
+</html>

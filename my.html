@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人中心</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- jquery -->
+
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<link rel="stylesheet" href="css/my_theme.css" />
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+
+<script src="js/myjs.js"></script>
+
+</head>
+<style type="text/css">
+  
+  /*网页content部分*/
+.contentcss{
+  padding:0px;}
+
+.footercss{
+  border-color: #ddd;
+  border: 0px;
+}
+
+#myOrders .headercss a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+#watched_movies .headercss a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+#want_movies .headercss a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+
+
+ .userImg{
+   width:100%;
+   height:30%;
+   background-color:#CCC;
+   background:url(data/img/userBg.jpg);
+   background-size:100% 100%;
+ }
+ .showImg{
+   position:absolute;
+   margin:0px auto;
+   width:25%;
+   left:38%;
+   top:13%;
+   height:auto;
+   border-radius:50%;
+   text-align: center;
+ }
+ .showImg img{
+   width:100%;
+   }
+
+  #orderul li a img{
+    max-height: 100%;
+    margin-top: 1.5%;
+
+  }
+
+  #wantMul li a img{
+    max-height: 100%;
+    margin-top: 1.5%;
+
+  }
+
+  #watchedul li a img{
+    max-height: 100%;
+    margin-top: 1.5%;
+
+  }  
+
+  .userInfodiv{
+    width: 90%;
+    margin: 0px auto; 
+    color: #ffffff;
+    padding: 1em;
+    text-shadow: none;
+    box-shadow: 0 1px 3px /*{global-box-shadow-size}*/ rgba(0,0,0,.2) /*{global-box-shadow-color}*/;
+    border-radius: 1em;
+    background:#5bb0ba;
+
+  }
+
+</style>
+
+<body>
+  <!-- 我的主页又通过page分为几个小的页面 -->
+  <div data-role="page" id="pageone">
+    <div data-role="header" class="headercss"><h1><b>个人主页</b></h1></div>
+    <div data-role="content" class="contentcss">
+      <div class="userImg">
+            <div class="showImg"><img src="data/img/userimg.png"></div>
+           
+      </div>
+       
+      <ul data-role="listview" data-inset="true">
+        <li><a href="#myOrders">我的订单</a></li>
+        <li>
+           <a href="#want_movies">想看的电影</a>
+        </li>
+        <li><a href="#watched_movies">看过的电影</a></li>
+
+        <li><a href="userInfo.html">我的信息</a></li>
+       
+      </ul>
+
+      
+      
+      
+    </div>
+      <div data-role="footer" data-position="fixed" class="footercss" id="footernav">
+         <div data-role="navbar" >
+                <ul>
+                   <li><a href="index1.html" data-icon="home" data-iconpos="top" >首页</a></li>
+                   <li><a href="upComing.html" data-icon="tag" data-iconpos="top" >即将上映</a></li>
+                   <li><a href="cinema.html" data-icon="star" data-iconpos="top">影院</a></li>
+                   <li><a href="my.html" data-icon="heart" data-iconpos="top" class="ui-btn-active">我的</a></li>
+                </ul>
+          </div>
+    </div> 
+  </div>
+  
+  <div data-role="page" id="myOrders">
+    <div data-role="header" class="headercss"><a data-role="button" data-rel="back" data-icon="back">返回</a><h1><b>我的订单</b></h1></div>
+    <div data-role="content" class="contentcss">
+
+      
+      <ul data-role="listview" data-inset="true" id="orderul">
+      
+      </ul>
+      
+      
+    </div>
+      <div data-role="footer" data-position="fixed" class="footercss" id="footernav">
+         <div data-role="navbar" >
+                <ul>
+                   <li><a href="index1.html" data-icon="home" data-iconpos="top" >首页</a></li>
+                   <li><a href="upComing.html" data-icon="tag" data-iconpos="top" >即将上映</a></li>
+                   <li><a href="cinema.html" data-icon="star" data-iconpos="top">影院</a></li>
+                   <li><a href="my.html" data-icon="heart" data-iconpos="top" class="ui-btn-active">我的</a></li>
+                </ul>
+          </div>
+    </div>  
+  </div>
+  
+  <div data-role="page" id="want_movies">
+    <div data-role="header" class="headercss"><a data-role="button" data-rel="back" data-icon="back">返回</a><h1><b>想看的电影</b></h1></div>
+    <div data-role="content" class="contentcss">
+
+      <ul data-role="listview" data-inset="true" id="wantMul">
+      </ul>
+            
+    </div>
+      <div data-role="footer" data-position="fixed" class="footercss" id="footernav">
+         <div data-role="navbar" >
+                <ul>
+                   <li><a href="index1.html" data-icon="home" data-iconpos="top" >首页</a></li>
+                   <li><a href="upComing.html" data-icon="tag" data-iconpos="top" >即将上映</a></li>
+                   <li><a href="cinema.html" data-icon="star" data-iconpos="top">影院</a></li>
+                   <li><a href="my.html" data-icon="heart" data-iconpos="top" class="ui-btn-active">我的</a></li>
+                </ul>
+          </div>
+    </div>   
+  </div>
+
+
+    <div data-role="page" id="watched_movies">
+    <div data-role="header" class="headercss"><a data-role="button" data-rel="back" data-icon="back">返回</a><h1><b>看过的电影</b></h1></div>
+    <div data-role="content" class="contentcss">
+
+      
+      <ul data-role="listview" data-inset="true" id="watchedul">
+        
+      </ul>
+      
+      
+    </div>
+      <div data-role="footer" data-position="fixed" class="footercss" id="footernav">
+         <div data-role="navbar" >
+                <ul>
+                   <li><a href="index1.html" data-icon="home" data-iconpos="top" >首页</a></li>
+                   <li><a href="upComing.html" data-icon="tag" data-iconpos="top" >即将上映</a></li>
+                   <li><a href="cinema.html" data-icon="star" data-iconpos="top">影院</a></li>
+                   <li><a href="my.html" data-icon="heart" data-iconpos="top" class="ui-btn-active">我的</a></li>
+                </ul>
+          </div>
+    </div>  
+  </div>   
+
+
+</body>
+
+
+</html>

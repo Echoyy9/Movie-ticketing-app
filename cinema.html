@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- jquery -->
+
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="css/my_theme.css" />
+<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script type="text/javascript" src="js/main.js"></script>
+</head>
+<style>
+*{
+  font-family: "Helvetica";
+}
+.img1{
+	width:100%;	
+  height: 100%;
+	}
+	
+.photoShow{
+	position:relative;
+    /*设置高度和宽度为了单选框能够上去*/
+    width:100%;
+	height:35%;
+
+	margin:0px auto;
+	padding:0px;
+	}
+
+/*按钮*/
+.rdodiv{
+	position:absolute;
+	bottom:4%;
+	z-index:999;
+	left:32%;
+	width:100%;
+	}
+.rdodiv input{
+	width:3%;}
+.contentcss{
+	padding:0px;}
+.showCinema{
+	width:96%;
+	margin:0px auto;
+	}
+	
+.cInfo{
+	width:80%;
+	float:left;}
+.cPrice{
+	width:20%;
+	float:left;
+	font-size:1.2em;
+	color:#C33;}
+.cloc{
+	width:20%;
+	float:left;
+	font-size:1.1em;
+	color:#999;
+	margin:0px;
+	}
+.cloc p{
+	margin:0px;}
+
+  /*评分*/
+  .stars-bg{
+    position: relative;
+    display: inline-block;
+    height: 19px;
+    width: 157px;
+    background: url(data/img/scoreStar.jpg) 0 0;
+  float:left;
+}
+.star-active{
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background: url(data/img/scoreStar.jpg) 0 -24px;
+}
+.right-txt{
+  float:left;
+  margin-left: .8em;
+  color:#F93;}
+
+#cinemaList{
+  padding-top: 1.1em;
+}
+#cinemaList a{
+  background-color: #ffffff;
+}
+
+.title p{
+  color:#ffffff;
+  font-size:1em;
+  margin: 0px;
+
+
+}
+.title{
+  margin: 0px;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  background-color: #5bb0ba;
+  text-align: center;
+    
+  border-color: 1px #5bb0ba;
+  border-radius: 0.7em;
+}
+
+
+</style>
+
+<body>
+<div data-role="page">
+   <div data-role="header" class="headercss">
+      <h1>影院</h1>
+      
+   </div>
+   
+   <div data-role="content" class="contentcss">
+           <div class="photoShow">
+         
+           <img src="data/movie/我不是药神/photos/horizontal.jpg" alt="图片不能正常显示" class="img1"/>
+    
+           <div class="rdodiv">
+               <input type="radio" name="rdo" value="0" data-role="none" checked>
+               <input type="radio" name="rdo" value="1" data-role="none">
+               <input type="radio" name="rdo" value="2" data-role="none">
+               <input type="radio" name="rdo" value="3" data-role="none">
+               <input type="radio" name="rdo" value="4" data-role="none">
+           </div>
+        </div>
+                      
+          
+        <div class="showCinema">
+                 <div class="title"><p>影院推荐</p></div>
+                 <ul data-role="listview" id="cinemaList"> 
+ 
+ 
+                    
+                 </ul>
+          </div>
+             
+   </div>
+   
+   <div data-role="footer" data-position="fixed" class="footercss"> 
+         <div data-role="navbar">
+                <ul>
+                   <li><a href="index1.html" data-icon="home" data-iconpos="top"  >首页</a></li>
+                   <li><a href="Upcoming.html" data-icon="tag" data-iconpos="top" >即将上映</a></li>
+                   <li><a href="cinema.html" data-icon="star" data-iconpos="top" class="ui-btn-active">影院</a></li>
+                   <li><a href="my.html" data-icon="heart" data-iconpos="top">我的</a></li>
+                </ul>
+          </div>    
+   </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function(){
+      var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+        if(window.openDatabase){ 
+             initCinema()
+         }
+         
+         $("a").attr("target","_top");
+         $("#cinemaList").on("click","li",function(){
+              sessionStorage.setItem("cID",$(this).attr("cID"));
+              window.location.href="movieDetail/chooseHall.html";
+         });
+
+    });
+    
+  function initCinema(){
+             db.transaction(function(tx){
+                tx.executeSql('select * from cinema',[],function(tx,results){
+                   var len = results.rows.length,i;
+                   
+
+                   for(i = 0;i < len;i++){
+                        var result = results.rows.item(i);
+                        var str = "<li cID = '"+result.cID+"'><a><div class='cInfo'>"
+                                +"<h6>"+result.cName+"</h6>"
+                                +"<p>"+result.loc+"</p>"
+                                +"<div class='star-eval'><span class='stars-bg'>"
+                                      
+                                +"<i class='star-active' style='width:"+parseFloat(result.score)/5*100+"%'></i></span>"
+                                +"<span class='right-txt'><b>"+result.score+"</b>分</span></div></div>"
+                             
+                             
+                                +"<div class='cPrice'><p><b>19.9元起</b></p></div>"
+                                +"<div class='cloc'><p><b>"+result.distance+"km</b></p></div></a></li>";
+                        $("#cinemaList").append(str);
+
+                        console.log((parseFloat(result.score)/5)*100);
+
+                   }
+                   $("#cinemaList").listview('refresh');
+
+
+                });
+             });
+  }
+</script>
+</body>
+</html>

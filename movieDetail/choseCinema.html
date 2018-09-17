@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/jquery.mobile-1.4.5.min.css">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.mobile-1.4.5.min.js"></script>
+
+<link rel="stylesheet" href="../css/my_theme.css" />
+<link rel="stylesheet" href="../css/jquery.mobile.icons.min.css" />
+
+<style>
+   .contentcss{
+	   padding:0px;}
+</style>
+
+</head>
+
+<style type="text/css">
+#header{
+  font-size:1.2em;
+  border:0px;}
+#header a{
+  background-color:#5bb0ba;
+  box-shadow:none;
+  border:0px;
+  font-size:0.8em;
+  color:#FFF;
+  text-shadow:none;
+  }
+.photoShow{
+	position:relative;
+    /*设置高度和宽度为了单选框能够上去*/
+    width:100%;
+	height:30%;
+
+	margin:0px auto;
+	padding:0px;
+	}
+.photoShow img{
+	width:100%;
+	height:100%;
+    }
+.contentcss{
+	padding:0px;}
+
+/*给选择添加下划线*/
+.liBorder {
+	 border-bottom:1px solid red;
+	}
+.clicka{
+	color:#C00;}
+	
+.showUl{
+	margin:0px;}
+.cInfo{
+	width:80%;
+	float:left;}
+.cPrice{
+	width:20%;
+	float:left;
+	font-size:1.25em;
+	color:#C33;}
+.cloc{
+	width:20%;
+	float:left;
+	font-size:1em;
+	color:#999;
+	margin:0px;
+	}
+.cloc p{
+	margin:0px;}
+.ui-page-theme-a .ui-btn.ui-btn-active{
+	    background-color: #f6f6f6;
+    border-color: #ddd;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;}
+.ui-page-theme-a  .ui-btn:focus{
+	box-shadow:none;}
+
+  #datenav li a {
+    padding: 0px;
+    
+  }
+	
+</style>
+
+<body>
+<div data-role="page">
+   <div data-role="header" class="headercss" id="header">
+      <a data-rel="back" data-icon="back" target="_top" >返回</a>
+      <h1 id="movieName">我不是药神</h1>
+      <a href="../index1.html" data-role="button" data-icon="home" target="_top">主页</a>
+   </div>
+   
+   <div data-role="content" class="contentcss">
+       <div class="photoShow">
+         
+           <img src="../data/movie/我不是药神/photos/horizontal.jpg" alt="图片不能正常显示"/>
+        </div>
+        <div data-role="tabs" >
+        <div data-role="navbar" id="datenav" >
+            <ul>
+              <li class="liBorder"><a href='#div1' id="aOne" class="linav"><p></p></a></li>
+              <li><a href='#div2' id="aTwo" class="linav"><p></p></a></li>
+              <li><a href='#div3' id="aThree" class="linav"><p></p></a></li>
+              <li><a href='#div4' id="aFour" class="linav"><p></p></a></li>
+            </ul>
+         </div>
+         
+             <br>
+             <div id="div1" class="showCinema">
+                 <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                    
+                 </ul>
+             </div>
+         
+             <div id="div2" class="showCinema">
+                 <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                 </ul>
+             </div>
+             
+             <div id="div3" class="showCinema">
+                 <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                 </ul>
+             </div>
+
+             <div id="div4" class="showCinema">
+                 <ul data-role="listview" data-inset="true" class="showUl">
+                    
+                 </ul>
+             </div>
+         
+         </div>
+   </div>
+   
+  
+</div>
+
+<script>
+
+   var db = openDatabase("webSql", "1.0", "testdb",1024*100);
+   var mID = sessionStorage.getItem("mID");
+
+   $(document).ready(function(e) {
+      	  height = $(window).height();
+	  d1 = $(".headercss").height();
+	  d2 = $(".footercss").height();
+	  
+	  $(".contentcss").css("height",height-d1-d2);
+	  $(".img1").css("height",$(".photoShow").height());
+	  $(window).resize(function(){
+		  height = $(window).height();
+		  d1 = $(".headercss").height();
+		  d2 = $(".footercss").height();
+		  
+		  $(".contentcss").css("height",height-d1-d2);
+		  $(".img1").css("height",$(".photoShow").height());
+   //执行代码块
+
+      });
+
+    $("#datenav ul li").click(function(){
+          $(".liBorder").removeClass("liBorder");
+          $(this).addClass("liBorder");        
+     });
+
+
+     db.transaction(function(tx){
+          tx.executeSql("select * from movie where mID = '"+mID+"'",[],function(tx,results){  
+                 var movie = results.rows.item(0);
+              
+
+                 $(".photoShow img").attr("src","../data/movie/"+movie.mName+"/photos/horizontal.jpg");
+                 
+                 $("#movieName").text(movie.mName);
+                                    
+        },function(tx,error){
+      });
+       
+           var selectstr = "select  cinema.cID,cinema.cName,cinema.loc,cinema.distance,cinema.score,min(schedule.price) as p ,date "
+                          +"From schedule,cinema "
+                          +"Where schedule.mID = '"+mID+"' AND schedule.cID = cinema.cID "
+                          +"Group BY schedule.cID,date";
+
+           tx.executeSql(selectstr,[],function(tx,results){
+                  var len = results.rows.length,i;
+                  console.log(results);
+                  var date = new Date();
+                  var year = date.getFullYear();
+                  var month = date.getMonth() + 1;
+                  var strDate = date.getDate();
+
+                  for( i = 0 ;i< len ;i++){
+                      var result = results.rows.item(i);
+                      var cID = result.cID;
+                      var cName = result.cName;
+                      var loc = result.loc;
+                      var distance = result.distance;
+                      var score = result.score;
+
+                      var minprice = result.p;
+                      var cDate = result.date;
+
+                     //即将上映
+                        var dateFeedBack  = stringToDate(cDate);
+                        
+                        var days1 = parseInt(dateFeedBack.getTime()/(1000*60*60*24));
+                        var days2 = parseInt(date.getTime()/(1000*60*60*24));
+                        var day = days1-days2;
+                        var appendstr =  "<li cID = '"+cID+"'><a href='' target='_top' ><div class='cInfo'>"
+                                         +"<h6>"+cName+"</h6>"
+                                         +"<p>"+loc+"</p></div>"
+                                         +"<div class='cPrice'><p><b>"+minprice+"元</b></p></div>"
+                                         +"<div class='cloc'><p><b>"+distance+"km</b></p></div></a></li>";;
+
+                        switch(day){
+                          case -1:
+                              var divstr="#div"+parseInt(day+2);
+                          break;
+                          case 0:
+                              var divstr="#div"+parseInt(day+2);
+                          break;
+                          case 1:
+                              var divstr="#div"+parseInt(day+2);
+                          break;
+                          case 2:
+                              var divstr="#div"+parseInt(day+2);
+                          break;
+                          default:console.log(cDate);
+                        }
+                        console.log(days1+"   "+days2+"   "+divstr);
+
+                        $(divstr+" ul").append(appendstr);
+                        $(divstr+" ul").listview("refresh");
+                      
+                  }
+
+                                      
+            },function(tx,error){
+              console.log(error);
+          }); 
+      
+                                    
+        },function(tx,error){
+      });
+
+
+
+
+      getDate();
+
+    
+       }); 
+	  
+           $(".showUl").on("click","li",function(){
+            console.log(126545);
+            sessionStorage.setItem("cID",$(this).attr("cID"));
+            window.location.href="chooseHall.html";
+           });
+
+  function getDate(){
+      var date = new Date();
+      var month = date.getMonth() + 1;
+  
+      var a = [];
+
+      if (month >= 1 && month <= 9) {
+            month = "0" + month;
+       }
+
+       a[0] = date.getDate();
+       if (a[0] >= 0 && a[0]  <= 9) {
+               a[0]  = "0" + a[0] ;
+            }
+        for(var i=1;i<4;i++){3
+          a[i] = parseInt(a[i-1])+1;
+
+            if (a[i] >= 0 && a[i]  <= 9) {
+               a[i]  = "0" + a[i] ;
+            }
+
+        }
+
+      $("#aOne p").text("今天"+month +"-"+ a[0]);
+      $("#aTwo p").text(month +"-"+  a[1]);
+      $("#aThree p").text(month +"-"+  a[2]);
+      $("#aFour p").text(month +"-"+  a[3]);
+
+      $("#aOne p").attr("id",month +"-"+ a[0]);
+      $("#aTwo p").attr("id",month +"-"+ a[1]);
+      $("#aThree p").attr("id",month +"-"+ a[2]);
+      $("#aFour p").attr("id",month +"-"+ a[3]);
+      
+  }
+
+   //将数据库中的值转换为date
+ function stringToDate(dateStr){ 
+    
+    var dateArr = dateStr.split("-"); 
+    var year = parseInt(dateArr[0]); 
+    var month; 
+    //处理月份为04这样的情况                          
+    if(dateArr[1].indexOf("0") == 0){ 
+        month = parseInt(dateArr[1].substring(1)); 
+    }else{ 
+         month = parseInt(dateArr[1]); 
+    } 
+
+    var day = parseInt(dateArr[2]); 
+
+    var date = new Date(year,month -1,day); 
+    
+    return date; 
+} 
+
+</script>
+</body>
+</html>
